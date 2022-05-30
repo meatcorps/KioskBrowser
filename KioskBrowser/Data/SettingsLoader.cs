@@ -1,9 +1,7 @@
 ﻿using System.IO;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace MusicPlayer.Data;
+namespace KioskBrowser.Data;
 
 public static class SettingsLoader
 {

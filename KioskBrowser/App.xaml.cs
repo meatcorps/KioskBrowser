@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using MusicPlayer.Data;
+using KioskBrowser.Data;
 
-namespace MusicPlayer;
+namespace KioskBrowser;
 
 /// <summary>
 ///     Interaction logic for App.xaml

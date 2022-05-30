@@ -4,9 +4,9 @@ using System.Reflection;
 using System.Windows;
 using CefSharp;
 using CefSharp.Wpf;
-using MusicPlayer.Data;
+using KioskBrowser.Data;
 
-namespace MusicPlayer;
+namespace KioskBrowser;
 
 /// <summary>
 ///     Interaction logic for MainWindow.xaml

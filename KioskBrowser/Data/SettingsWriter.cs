@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Newtonsoft.Json;
 
-namespace MusicPlayer.Data;
+namespace KioskBrowser.Data;
 
 public static class SettingsWriter
 {

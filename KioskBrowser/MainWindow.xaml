@@ -1,4 +1,4 @@
-﻿<Window x:Class="MusicPlayer.MainWindow"
+﻿<Window x:Class="KioskBrowser.MainWindow"
         Name="WebWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

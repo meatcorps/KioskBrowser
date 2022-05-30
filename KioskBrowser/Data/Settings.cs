@@ -2,7 +2,7 @@
 
 using System;
 
-namespace MusicPlayer.Data;
+namespace KioskBrowser.Data;
 
 [Serializable]
 public class Settings
