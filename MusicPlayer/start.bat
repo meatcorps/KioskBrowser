@@ -1,0 +1,1 @@
+MusicPlayer.exe .\WindowProfiles\YoutubeMusic\settings.json
