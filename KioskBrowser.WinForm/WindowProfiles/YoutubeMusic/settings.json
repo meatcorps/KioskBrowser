@@ -1,0 +1,16 @@
+﻿{
+  "AppName": "Youtube Music",
+  "WebUrl": "https://music.youtube.com",
+  "UserAgent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:70.0) Gecko/20100101 Firefox/70.0",
+  "X": 0,
+  "Y": 0,
+  "Width": 1920,
+  "Height": 540,
+  "WindowLess": true,
+  "AlwaysOnTop": false,
+  "ShowDevTools": false,
+  "FilesToInject": [
+    "inject.js",
+    "logo.js"
+  ]
+}

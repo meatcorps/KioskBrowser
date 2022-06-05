@@ -4,20 +4,29 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>net6.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
-        <UseWPF>true</UseWPF>
-        <Configurations>Debug;Release</Configurations>
-        <Platforms>x64</Platforms>
-        <ApplicationIcon>assets\logo.ico</ApplicationIcon>
+        <UseWindowsForms>true</UseWindowsForms>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+        <ApplicationIcon>logo.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <Prefer32bit>true</Prefer32bit>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <Prefer32bit>true</Prefer32bit>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CefSharp.Wpf.NETCore" Version="101.0.150" />
+      <PackageReference Include="CefSharp.WinForms.NETCore" Version="102.0.90" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="start.bat">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+      <ProjectReference Include="..\KioskBrowser.Core\KioskBrowser.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
       <None Update="WindowProfiles\YoutubeMusic\inject.js">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
@@ -27,10 +36,6 @@
       <None Update="WindowProfiles\YoutubeMusic\settings.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\KioskBrowser.Core\KioskBrowser.Core.csproj" />
     </ItemGroup>
 
 </Project>

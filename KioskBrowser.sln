@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KioskBrowser", "KioskBrowse
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.DataService", "KioskBrowser.DataService\KioskBrowser.DataService.csproj", "{2A77A737-D06B-48A6-8CD0-62AFAA5A04E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.WinForm", "KioskBrowser.WinForm\KioskBrowser.WinForm.csproj", "{FB48337B-D2E3-4A08-A193-678401F3B1BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.Core", "KioskBrowser.Core\KioskBrowser.Core.csproj", "{D452B3CD-9B59-4F3C-BE57-1EBC8FD5B8BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,22 @@ Global
 		{2A77A737-D06B-48A6-8CD0-62AFAA5A04E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2A77A737-D06B-48A6-8CD0-62AFAA5A04E9}.Release|x64.ActiveCfg = Release|Any CPU
 		{2A77A737-D06B-48A6-8CD0-62AFAA5A04E9}.Release|x64.Build.0 = Release|Any CPU
+		{FB48337B-D2E3-4A08-A193-678401F3B1BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB48337B-D2E3-4A08-A193-678401F3B1BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB48337B-D2E3-4A08-A193-678401F3B1BE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FB48337B-D2E3-4A08-A193-678401F3B1BE}.Debug|x64.Build.0 = Debug|Any CPU
+		{FB48337B-D2E3-4A08-A193-678401F3B1BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB48337B-D2E3-4A08-A193-678401F3B1BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB48337B-D2E3-4A08-A193-678401F3B1BE}.Release|x64.ActiveCfg = Release|Any CPU
+		{FB48337B-D2E3-4A08-A193-678401F3B1BE}.Release|x64.Build.0 = Release|Any CPU
+		{D452B3CD-9B59-4F3C-BE57-1EBC8FD5B8BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D452B3CD-9B59-4F3C-BE57-1EBC8FD5B8BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D452B3CD-9B59-4F3C-BE57-1EBC8FD5B8BB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D452B3CD-9B59-4F3C-BE57-1EBC8FD5B8BB}.Debug|x64.Build.0 = Debug|Any CPU
+		{D452B3CD-9B59-4F3C-BE57-1EBC8FD5B8BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D452B3CD-9B59-4F3C-BE57-1EBC8FD5B8BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D452B3CD-9B59-4F3C-BE57-1EBC8FD5B8BB}.Release|x64.ActiveCfg = Release|Any CPU
+		{D452B3CD-9B59-4F3C-BE57-1EBC8FD5B8BB}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
