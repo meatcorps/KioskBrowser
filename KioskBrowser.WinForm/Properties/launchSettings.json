@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KioskBrowser.WinForm": {
+      "commandName": "Project",
+      "commandLineArgs": ".\\WindowProfiles\\YoutubeMusic\\settings.json"
+    }
+  }
+}
