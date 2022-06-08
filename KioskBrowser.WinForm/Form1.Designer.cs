@@ -37,17 +37,12 @@ partial class Form1
         this.components = new System.ComponentModel.Container();
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
         this.Text = Settings.AppName;
-        //this.Width = Settings.Width;
-        //this.Height = Settings.Height;
-        //this.Left = Settings.X;
-        //this.Top = Settings.Y;
         this.Bounds = new Rectangle(Settings.X, Settings.Y, Settings.Width, Settings.Height);
         this.ClientSize = new Size(Settings.Width, Settings.Height);
         this.TopMost = Settings.AlwaysOnTop;
+        
         if (Settings.WindowLess)
-        {
             this.FormBorderStyle = FormBorderStyle.None;
-        }
 
         InitializeChromium();
     }

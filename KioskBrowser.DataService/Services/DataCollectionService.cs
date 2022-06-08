@@ -1,12 +1,14 @@
 ﻿using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using KioskBrowser.DataService.Data;
+using KioskBrowser.DataService.Interface;
 using KioskBrowser.DataService.Utilities;
 
 namespace KioskBrowser.DataService.Services;
 
-public class DataService: IDisposable
+public class DataCollectionService: IDisposable
 {
     private CollectionData _collectionData;
     private readonly Subject<Tuple<object, CollectionData>> _collectionDataSubject;
@@ -19,9 +21,11 @@ public class DataService: IDisposable
     public CrudManager<MessageData>? MessageData { get; private set; }
     public CrudManager<ProductData>? ProductData { get; private set; }
 
-    public IObservable<Unit> OnReady => _onReadySubject.AsObservable();
+    public IObservable<Unit> OnReady => IsReady 
+        ? Observable.Return(Unit.Default) 
+        : _onReadySubject.AsObservable();
 
-    public DataService(PersistentDataService saveLoadService)
+    public DataCollectionService(PersistentDataService saveLoadService)
     {
         _collectionDataSubject = saveLoadService.CollectionSubject;
         _collectionDataSubject
@@ -45,28 +49,28 @@ public class DataService: IDisposable
     {
         _crudDisposeToken.Dispose();
         _crudDisposeToken = new CancellationTokenRegistration();
+        
         GroupData = new CrudManager<GroupData>(_collectionData.Groups);
         MessageData = new CrudManager<MessageData>(_collectionData.Messages);
         ProductData = new CrudManager<ProductData>(_collectionData.Products);
 
-        GroupData.OnAdded.Subscribe(TriggerSave, _crudDisposeToken.Token);
-        GroupData.OnChange.Subscribe(TriggerSave, _crudDisposeToken.Token);
-        GroupData.OnRemoved.Subscribe(TriggerSave, _crudDisposeToken.Token);
-        
-        MessageData.OnAdded.Subscribe(TriggerSave, _crudDisposeToken.Token);
-        MessageData.OnChange.Subscribe(TriggerSave, _crudDisposeToken.Token);
-        MessageData.OnRemoved.Subscribe(TriggerSave, _crudDisposeToken.Token);
-
-        ProductData.OnAdded.Subscribe(TriggerSave, _crudDisposeToken.Token);
-        ProductData.OnChange.Subscribe(TriggerSave, _crudDisposeToken.Token);
-        ProductData.OnRemoved.Subscribe(TriggerSave, _crudDisposeToken.Token);
+        SubScribeToAllToTriggerSave(GroupData);
+        SubScribeToAllToTriggerSave(MessageData);
+        SubScribeToAllToTriggerSave(ProductData);
         
         _onReadySubject.OnNext(Unit.Default);
     }
 
+    private void SubScribeToAllToTriggerSave<T>(CrudManager<T> crudManager) where T: IGuidData
+    {
+        crudManager.OnAdded.Subscribe(_ => TriggerSave(), _crudDisposeToken.Token);
+        crudManager.OnChange.Subscribe(_ => TriggerSave(), _crudDisposeToken.Token);
+        crudManager.OnRemoved.Subscribe(_ => TriggerSave(), _crudDisposeToken.Token);
+    } 
+
     public bool IsReady => GroupData is not null && MessageData is not null && ProductData is not null;
     
-    private void TriggerSave(object newData)
+    private void TriggerSave()
     {
         _saveSubject.OnNext(Unit.Default);
     }

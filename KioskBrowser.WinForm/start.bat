@@ -1,0 +1,1 @@
+﻿KioskBrowser.WinForm.exe .\WindowProfiles\YoutubeMusic\settings.json

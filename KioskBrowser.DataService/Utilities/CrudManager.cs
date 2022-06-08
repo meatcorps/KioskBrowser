@@ -58,7 +58,15 @@ public class CrudManager<T> : IDisposable where T : IGuidData
 
     public T? Get(Guid id)
     {
-        return _dataTable.First(x => x.Id == id);
+        try
+        {
+            return _dataTable
+                .First(x => x.Id == id);
+        }
+        catch (InvalidOperationException e)
+        {
+            return default;
+        }
     }
 
     public T[] All()
