@@ -1,0 +1,10 @@
+
+.flex-container {
+  display: flex;
+}
+
+.group-edit {
+  flex: 1;
+  max-width: 320px;
+}
+

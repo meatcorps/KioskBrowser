@@ -2,9 +2,8 @@
   <span>Management</span>
 </mat-toolbar>
 <div *ngIf="data.connected">
-  <mat-list role="list">
-    <mat-list-item role="listitem">Item 1</mat-list-item>
-    <mat-list-item role="listitem">Item 2</mat-list-item>
-    <mat-list-item role="listitem">Item 3</mat-list-item>
-  </mat-list>
+  <div class="flex-container">
+    <app-group-manager></app-group-manager>
+    <app-product-manager></app-product-manager>
+  </div>
 </div>

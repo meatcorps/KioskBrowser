@@ -1,0 +1,43 @@
+<mat-list role="list" class="product-edit" cdkDropList (cdkDropListDropped)="productDrop($event)">
+  <mat-list-item class="edit-window" role="listitem">
+    <mat-form-field class="simple editor" appearance="fill">
+      <mat-label>Product name</mat-label>
+      <input matInput placeholder="My awesome product" [(ngModel)]="currentProduct.title">
+    </mat-form-field>
+    <mat-form-field class="simple editor" appearance="fill">
+      <mat-label>Product supply</mat-label>
+      <input matInput placeholder="My awesome product" type="number" [(ngModel)]="currentProduct.totalItems">
+    </mat-form-field>
+    <mat-form-field class="simple editor" appearance="fill">
+      <mat-label>Product supply</mat-label>
+      <input matInput placeholder="My awesome product" type="number" [(ngModel)]="currentProduct.group">
+    </mat-form-field>
+    <mat-form-field class="simple editor" appearance="fill">
+      <mat-label>Group</mat-label>
+      <mat-select [(ngModel)]="currentProduct.group">
+        <mat-option *ngFor="let group of groups" [value]="group.id">
+          {{group.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-icon-button color="accent" (click)="resetCurrentProduct()">
+      <mat-icon>undo</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="saveCurrentProduct()">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-list-item>
+  <mat-list-item class="title-actions" role="listitem" *ngFor="let product of products" cdkDrag>
+    <span class="title">{{product.title}}</span>
+    <span class="title">({{product.totalItems}})</span>
+    <span class="title">{{getGroupNameFromId(product.group)}}</span>
+    <span class="actions">
+        <button mat-icon-button color="accent" (click)="currentProduct = product">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="removeProduct(product)" >
+          <mat-icon>remove</mat-icon>
+        </button>
+      </span>
+  </mat-list-item>
+</mat-list>

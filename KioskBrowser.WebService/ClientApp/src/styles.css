@@ -15,5 +15,5 @@ code {
   border-color: #1861ac;
 }
 
-html, body { height: 100%; }
+html, body { height: 100%; background: #222; color: #aaa; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

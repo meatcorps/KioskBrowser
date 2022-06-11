@@ -1,0 +1,25 @@
+<mat-list role="list" class="group-edit" cdkDropList (cdkDropListDropped)="groupDrop($event)">
+  <mat-list-item class="edit-window" role="listitem">
+    <mat-form-field class="simple editor" appearance="fill">
+      <mat-label>Group name</mat-label>
+      <input matInput placeholder="My awesome group" [(ngModel)]="currentGroup.name">
+    </mat-form-field>
+    <button mat-icon-button color="accent" (click)="resetCurrentGroup()">
+      <mat-icon>undo</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="saveCurrentGroup()">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-list-item>
+  <mat-list-item class="title-actions" role="listitem" *ngFor="let group of groups" cdkDrag>
+    <span class="title">{{group.name}}</span>
+    <span class="actions">
+        <button mat-icon-button color="accent" (click)="currentGroup = group">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="removeGroup(group)" >
+          <mat-icon>remove</mat-icon>
+        </button>
+      </span>
+  </mat-list-item>
+</mat-list>

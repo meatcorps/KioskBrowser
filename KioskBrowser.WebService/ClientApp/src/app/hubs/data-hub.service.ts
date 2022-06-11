@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HubConnection, HubConnectionState} from "@microsoft/signalr";
 import * as signalR from "@microsoft/signalr";
-import {Observable, of, Subject} from "rxjs";
+import {BehaviorSubject, Observable, of, Subject} from "rxjs";
 import { IGroupData } from '../interfaces/IGroupData';
 import {IProductData} from "../interfaces/IProductData";
 import {IMessageData} from "../interfaces/IMessageData";
@@ -27,7 +27,7 @@ export class DataHubService {
 
   public get connectionReady(): Observable<void> {
     if (this.connected) {
-      return of();
+      return new BehaviorSubject<any>(null);
     }
     return this.connectionReadySubject.pipe(take(1));
   }
@@ -59,8 +59,8 @@ export class DataHubService {
       group.sortIndex);
   }
 
-  public removeGroup(id: string): Promise<void> {
-    return this.hubConnection.invoke("RemoveGroup", id);
+  public removeGroup(group: IGroupData): Promise<void> {
+    return this.hubConnection.invoke("RemoveGroup", group.id);
   }
 
   public allGroups(): Promise<IGroupData[]> {

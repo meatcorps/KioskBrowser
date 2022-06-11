@@ -12,6 +12,8 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ManagementComponent } from './pages/management/management.component';
 import {MaterialModule} from "./material/material.module";
+import { GroupManagerComponent } from './pages/management/group-manager/group-manager.component';
+import { ProductManagerComponent } from './pages/management/product-manager/product-manager.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import {MaterialModule} from "./material/material.module";
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    ManagementComponent
+    ManagementComponent,
+    GroupManagerComponent,
+    ProductManagerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
