@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {PingHubService} from "./hubs/ping-hub.service";
-import {interval, Observable} from "rxjs";
-import {filter} from "rxjs/operators";
 import {DataHubService} from "./hubs/data-hub.service";
 
 @Component({

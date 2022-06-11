@@ -1,10 +1,3 @@
 <body>
-  <app-nav-menu></app-nav-menu>
-  <div class="container">
     <router-outlet></router-outlet>
-  </div>
-  <input [(ngModel)]="guid">
-  <button (click)="data.addEditGroup(guid, 'TestGroup', 1)">Add {{guid}}</button>
-  <button (click)="data.removeGroup(guid)">Remove {{guid}}</button>
-  <button (click)="all();">All</button>
 </body>

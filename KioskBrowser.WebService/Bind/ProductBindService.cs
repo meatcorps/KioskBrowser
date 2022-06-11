@@ -21,7 +21,10 @@ public class ProductBindService: IDisposable
             .Take(1)
             .Subscribe(_ =>
         {
-            _dataCollectionService.ProductData!.OnChangeList.Subscribe(OnChangeList,
+            _dataCollectionService.ProductData!
+                .OnChangeList
+                .Sample(TimeSpan.FromSeconds(1))
+                .Subscribe(OnChangeList,
                 _cancellationTokenRegistration.Token);
         });
     }

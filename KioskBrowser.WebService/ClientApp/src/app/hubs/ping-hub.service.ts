@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as signalR from "@microsoft/signalr"
 import {HubConnection, HubConnectionState} from "@microsoft/signalr";
-import {timeout} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'

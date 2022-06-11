@@ -24,6 +24,12 @@ public partial class DataHub
                 SortIndex = 0
             }
         );
+
+        var productsToRemove = DataService.ProductData!.All()
+            .Where(x => x.Id == Guid.Parse(id));
+
+        foreach (var product in productsToRemove)
+            DataService.ProductData.Delete(product);
     }
 
     public IEnumerable<GroupData> AllGroups()

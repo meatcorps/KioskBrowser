@@ -21,7 +21,10 @@ public class GroupBindService: IDisposable
             .Take(1)
             .Subscribe(_ =>
             {
-                _dataCollectionService.GroupData!.OnChangeList.Subscribe(OnChangeList,
+                _dataCollectionService.GroupData!
+                    .OnChangeList
+                    .Sample(TimeSpan.FromSeconds(1))
+                    .Subscribe(OnChangeList,
                     _cancellationTokenRegistration.Token);
             });
     }

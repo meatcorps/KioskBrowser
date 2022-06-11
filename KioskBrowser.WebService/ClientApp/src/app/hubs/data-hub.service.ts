@@ -1,22 +1,35 @@
 import { Injectable } from '@angular/core';
 import {HubConnection, HubConnectionState} from "@microsoft/signalr";
 import * as signalR from "@microsoft/signalr";
-import {Observable, Subject} from "rxjs";
+import {Observable, of, Subject} from "rxjs";
+import { IGroupData } from '../interfaces/IGroupData';
+import {IProductData} from "../interfaces/IProductData";
+import {IMessageData} from "../interfaces/IMessageData";
+import {take} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataHubService {
   private hubConnection: HubConnection;
-  private groupDataChangeSubject: Subject<any> = new Subject<any>();
-  public groupDataChange: Observable<any> = this.groupDataChangeSubject.asObservable();
-  private incomingMessageSubject: Subject<any> = new Subject<any>();
-  public incomingMessageChange: Observable<any> = this.incomingMessageSubject.asObservable();
-  private productChangeSubject: Subject<any> = new Subject<any>();
-  public productDataChange: Observable<any> = this.productChangeSubject.asObservable();
+  private groupDataChangeSubject: Subject<IGroupData[]> = new Subject<any>();
+  public groupDataChange: Observable<IGroupData[]> = this.groupDataChangeSubject.asObservable();
+  private incomingMessageSubject: Subject<IMessageData> = new Subject<any>();
+  public incomingMessageChange: Observable<IMessageData> = this.incomingMessageSubject.asObservable();
+  private productChangeSubject: Subject<IProductData[]> = new Subject<any>();
+  public productDataChange: Observable<IProductData[]> = this.productChangeSubject.asObservable();
+
+  private connectionReadySubject: Subject<void> = new Subject<any>();
 
   public get connected(): boolean {
     return this.hubConnection.state === HubConnectionState.Connected;
+  }
+
+  public get connectionReady(): Observable<void> {
+    if (this.connected) {
+      return of();
+    }
+    return this.connectionReadySubject.pipe(take(1));
   }
 
   public startConnection() {
@@ -27,6 +40,7 @@ export class DataHubService {
       .start()
       .then(() => {
         console.log('Connection started');
+        this.connectionReadySubject.next();
       })
       .catch(err => {
         console.log('Error while starting connection: ' + err);
@@ -37,41 +51,61 @@ export class DataHubService {
     this.hubConnection.on('AllProducts', (data: any) => this.productChangeSubject.next(data));
   }
 
-  public addEditGroup(id: string, groupName: string, sortIndex: number): Promise<void> {
-    return this.hubConnection.invoke("AddEditGroup", id, groupName, sortIndex);
+  public addEditGroup(group: IGroupData): Promise<void> {
+    return this.hubConnection.invoke(
+      "AddEditGroup",
+      group.id,
+      group.name,
+      group.sortIndex);
   }
 
   public removeGroup(id: string): Promise<void> {
     return this.hubConnection.invoke("RemoveGroup", id);
   }
 
-  public allGroups(): Promise<any> {
+  public allGroups(): Promise<IGroupData[]> {
     return this.hubConnection.invoke("AllGroups");
   }
 
-  public addEditProduct(id: string, title: string, group: string, sortIndex: number, totalItems: number): Promise<void> {
-    return this.hubConnection.invoke("AddEditProduct", id, title, group, sortIndex, totalItems);
+  public addEditProduct(product: IProductData): Promise<void> {
+    return this.hubConnection.invoke(
+      "AddEditProduct",
+      product.id,
+      product.title,
+      product.group,
+      product.sortIndex,
+      product.totalItems);
   }
 
-  public removeProduct(id: string): Promise<void> {
-    return this.hubConnection.invoke("RemoveProduct", id);
+  public removeProduct(product: IProductData): Promise<void> {
+    return this.hubConnection.invoke("RemoveProduct", product.id);
   }
 
-  public allProduct(): Promise<any> {
+  public allProduct(): Promise<IProductData[]> {
     return this.hubConnection.invoke("AllProducts");
   }
 
-  public addEditMessage(id: string, title: string, message: string): Promise<void> {
-    return this.hubConnection.invoke("AddEditMessage", id, title, message);
+  public addEditMessage(message: IMessageData): Promise<void> {
+    return this.hubConnection.invoke(
+      "AddEditMessage",
+      message.id,
+      message.title,
+      message.message);
   }
 
-  public removeMessage(id: string): Promise<void> {
-    return this.hubConnection.invoke("RemoveMessage", id);
+  public removeMessage(message: IMessageData): Promise<void> {
+    return this.hubConnection.invoke("RemoveMessage", message.id);
   }
 
-  public allMessages(): Promise<any> {
+  public allMessages(): Promise<IGroupData[]> {
     return this.hubConnection.invoke("AllMessages");
   }
 
   constructor() { }
+}
+
+export {
+  IGroupData,
+  IMessageData,
+  IProductData
 }
