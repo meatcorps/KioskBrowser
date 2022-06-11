@@ -12,7 +12,7 @@ export class ProductManagerComponent implements OnInit {
 
   public groups: IGroupData[] = [];
   public products: IProductData[] = [];
-  public currentProduct: IProductData = {id: '', title: '', group: '', sortIndex: 0, totalItems: 1};
+  public currentProduct: IProductData = {id: '', name: '', group: '', sortIndex: 0, totalItems: 1};
 
   constructor(public data: DataHubService) { }
 
@@ -28,6 +28,7 @@ export class ProductManagerComponent implements OnInit {
         .then(x => this.setGroupCollection(x));
 
       this.data.productDataChange.subscribe(x => this.setProductCollection(x));
+      this.data.groupDataChange.subscribe(x => this.setGroupCollection(x));
     });
   }
 
@@ -46,13 +47,14 @@ export class ProductManagerComponent implements OnInit {
   }
 
   public resetCurrentProduct() {
-    this.currentProduct = {id: '', title: '', group: '', sortIndex: 0, totalItems: 1};
+    this.currentProduct = {id: '', name: '', group: '', sortIndex: 0, totalItems: 1};
   }
 
   public saveCurrentProduct() {
-    this.data.addEditProduct(this.currentProduct).finally(() => {
-      alert('Done');
-    });
+    if (this.currentProduct.id === '') {
+      this.currentProduct.sortIndex = this.products.length + 1;
+    }
+    this.data.addEditProduct(this.currentProduct).finally(() => {});
     this.resetCurrentProduct();
   }
 

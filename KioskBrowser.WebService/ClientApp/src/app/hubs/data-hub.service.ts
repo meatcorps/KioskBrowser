@@ -6,6 +6,7 @@ import { IGroupData } from '../interfaces/IGroupData';
 import {IProductData} from "../interfaces/IProductData";
 import {IMessageData} from "../interfaces/IMessageData";
 import {take} from "rxjs/operators";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class DataHubService {
 
   public startConnection() {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:5176/data')
+      .withUrl(environment.url + '/data')
       .build();
     this.hubConnection
       .start()
@@ -71,7 +72,7 @@ export class DataHubService {
     return this.hubConnection.invoke(
       "AddEditProduct",
       product.id,
-      product.title,
+      product.name,
       product.group,
       product.sortIndex,
       product.totalItems);

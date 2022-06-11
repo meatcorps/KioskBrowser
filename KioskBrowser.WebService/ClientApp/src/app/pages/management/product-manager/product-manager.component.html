@@ -2,15 +2,11 @@
   <mat-list-item class="edit-window" role="listitem">
     <mat-form-field class="simple editor" appearance="fill">
       <mat-label>Product name</mat-label>
-      <input matInput placeholder="My awesome product" [(ngModel)]="currentProduct.title">
+      <input matInput placeholder="My awesome product" [(ngModel)]="currentProduct.name">
     </mat-form-field>
     <mat-form-field class="simple editor" appearance="fill">
-      <mat-label>Product supply</mat-label>
+      <mat-label>Supply</mat-label>
       <input matInput placeholder="My awesome product" type="number" [(ngModel)]="currentProduct.totalItems">
-    </mat-form-field>
-    <mat-form-field class="simple editor" appearance="fill">
-      <mat-label>Product supply</mat-label>
-      <input matInput placeholder="My awesome product" type="number" [(ngModel)]="currentProduct.group">
     </mat-form-field>
     <mat-form-field class="simple editor" appearance="fill">
       <mat-label>Group</mat-label>
@@ -27,10 +23,9 @@
       <mat-icon>save</mat-icon>
     </button>
   </mat-list-item>
-  <mat-list-item class="title-actions" role="listitem" *ngFor="let product of products" cdkDrag>
-    <span class="title">{{product.title}}</span>
-    <span class="title">({{product.totalItems}})</span>
-    <span class="title">{{getGroupNameFromId(product.group)}}</span>
+  <mat-list-item class="title-actions" [class.active]="product.id === currentProduct.id" role="listitem" *ngFor="let product of products" cdkDrag>
+    <span class="title">{{product.name}} ({{product.totalItems}})</span>
+    <span class="title group">{{getGroupNameFromId(product.group)}}</span>
     <span class="actions">
         <button mat-icon-button color="accent" (click)="currentProduct = product">
           <mat-icon>edit</mat-icon>

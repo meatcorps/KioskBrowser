@@ -14,6 +14,7 @@ import { ManagementComponent } from './pages/management/management.component';
 import {MaterialModule} from "./material/material.module";
 import { GroupManagerComponent } from './pages/management/group-manager/group-manager.component';
 import { ProductManagerComponent } from './pages/management/product-manager/product-manager.component';
+import { MenuComponent } from './pages/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProductManagerComponent } from './pages/management/product-manager/prod
     FetchDataComponent,
     ManagementComponent,
     GroupManagerComponent,
-    ProductManagerComponent
+    ProductManagerComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,6 +38,7 @@ import { ProductManagerComponent } from './pages/management/product-manager/prod
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'management', component: ManagementComponent },
+      { path: 'menu', component: MenuComponent },
     ]),
     BrowserAnimationsModule
   ],

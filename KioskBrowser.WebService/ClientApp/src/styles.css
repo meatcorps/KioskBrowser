@@ -15,5 +15,17 @@ code {
   border-color: #1861ac;
 }
 
-html, body { height: 100%; background: #222; color: #aaa; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  background: #222;
+  color: #aaa;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-list mat-list-item:first-child span.mat-list-item-content {
+  padding-left: 0 !important;
+}

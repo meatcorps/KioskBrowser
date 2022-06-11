@@ -7,7 +7,11 @@ public partial class DataHub
 {
     public void AddEditProduct(string id, string title, string group, int sortIndex, int totalItems)
     {
-        var realGroupItem = DataService.GroupData!.Get(Guid.Parse(group));
+        if (!Guid.TryParse(group, out var groupGuid))
+            return;
+        
+        
+        var realGroupItem = DataService.GroupData!.Get(groupGuid);
 
         if (realGroupItem is null)
             return;

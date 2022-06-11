@@ -26,7 +26,7 @@ public partial class DataHub
         );
 
         var productsToRemove = DataService.ProductData!.All()
-            .Where(x => x.Id == Guid.Parse(id));
+            .Where(x => x.Group == Guid.Parse(id));
 
         foreach (var product in productsToRemove)
             DataService.ProductData.Delete(product);

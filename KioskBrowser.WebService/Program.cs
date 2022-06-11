@@ -5,6 +5,8 @@ using KioskBrowser.DataService.Services;
 using KioskBrowser.DataService.Utilities;
 using KioskBrowser.WebService.Bind;
 using KioskBrowser.WebService.Hubs;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,22 +41,19 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+app.UseStaticFiles(new StaticFileOptions()
 {
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-// app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
+    FileProvider = new PhysicalFileProvider(
+        FileUtilities.GetExecutingFile("wwwroot").FullName),
+    RequestPath = new PathString("/app")
+});
+// app.UseRouting();
 
 app.UseCors("CorsPolicy");
 
-app.MapControllerRoute(
+/* app.MapControllerRoute(
     name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+    pattern: "{controller}/{action=Index}/{id?}"); */
 
 app.MapFallbackToFile("index.html");
 

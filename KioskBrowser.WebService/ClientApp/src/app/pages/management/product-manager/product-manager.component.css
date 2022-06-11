@@ -1,0 +1,30 @@
+.edit-window mat-form-field {
+  font-size: 11px;
+  margin-bottom: -11px;
+  width: 100%;
+}
+
+.title-actions {
+  display: flex;
+}
+
+.title-actions .title {
+  flex: 1;
+}
+
+mat-list-item:nth-child(even) {
+  background: rgba(255,255,255,0.1);
+}
+
+mat-list-item.active {
+  background: rgba(255,0,255,0.2);
+}
+
+mat-form-field {
+  margin: 0 2px;
+}
+
+span.title.group {
+  max-width: 300px;
+}
+

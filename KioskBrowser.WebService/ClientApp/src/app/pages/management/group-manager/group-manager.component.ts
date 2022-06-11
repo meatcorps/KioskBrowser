@@ -40,9 +40,10 @@ export class GroupManagerComponent implements OnInit {
   }
 
   public saveCurrentGroup() {
-    this.data.addEditGroup(this.currentGroup).finally(() => {
-      alert('Done');
-    });
+    if (this.currentGroup.id === '') {
+      this.currentGroup.sortIndex = this.groups.length + 1;
+    }
+    this.data.addEditGroup(this.currentGroup).finally(() => {});
     this.resetCurrentGroup();
   }
 

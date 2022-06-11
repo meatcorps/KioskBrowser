@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as signalR from "@microsoft/signalr"
 import {HubConnection, HubConnectionState} from "@microsoft/signalr";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class PingHubService {
 
   public startConnection() {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:5176/ping')
+      .withUrl(environment.url + '/ping')
       .build();
     this.hubConnection
       .start()

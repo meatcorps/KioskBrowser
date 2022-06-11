@@ -11,7 +11,7 @@
       <mat-icon>save</mat-icon>
     </button>
   </mat-list-item>
-  <mat-list-item class="title-actions" role="listitem" *ngFor="let group of groups" cdkDrag>
+  <mat-list-item class="title-actions" [class.active]="group.id === currentGroup.id" role="listitem" *ngFor="let group of groups" cdkDrag>
     <span class="title">{{group.name}}</span>
     <span class="actions">
         <button mat-icon-button color="accent" (click)="currentGroup = group">
