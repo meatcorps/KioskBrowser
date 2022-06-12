@@ -1,0 +1,20 @@
+<div class="fixed">
+  <mat-button-toggle-group name="fontStyle" [(ngModel)]="mode" aria-label="Font Style">
+    <mat-button-toggle value="+">Add</mat-button-toggle>
+    <mat-button-toggle value="-">Subtract</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+<div class="spacer"></div>
+<div class="group" *ngFor="let group of groups; let i = index">
+  <h1>{{group.name}}</h1>
+
+    <button class="supply-button group-color-{{i}}"
+            (click)="changeSupply(product)"
+      mat-raised-button color="Success"
+      *ngFor="let product of allProductsFromGroup(group)"
+      [matBadge]="product.totalItems" matBadgePosition="after" matBadgeColor="accent"
+    >
+      <span class="title">{{product.name}}</span>
+    </button>
+
+</div>

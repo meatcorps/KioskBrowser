@@ -1,0 +1,60 @@
+.group-color-1 {
+  background-color: #1b6ec2;
+}
+.group-color-2 {
+  background-color: #519945;
+}
+.group-color-3 {
+  background-color: #e01a76;
+}
+.group-color-4 {
+  background-color: #634278;
+}
+.group-color-5 {
+  background-color: #916305;
+}
+.group-color-7 {
+  background-color: #5e00ff;
+}
+.group-color-8 {
+  background-color: #20a48e;
+}
+
+.supply-button {
+  margin: 7px;
+  width: 140px;
+  white-space: normal;
+  height: 100px;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  vertical-align: middle;
+}
+
+h1 {
+  padding: 7px 15px 0;
+  margin: 0;
+  line-height: 1em;
+  display: block;
+}
+
+.group {
+  background: rgba(0,0,0,0.5);
+  margin: 5px;
+  border-radius: 15px;
+}
+
+.fixed {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  text-align: right;
+}
+
+.spacer {
+  height: 50px;
+}
+
+mat-button-toggle-group {
+  margin-left: calc(100vw - 140px);
+}

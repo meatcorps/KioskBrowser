@@ -15,6 +15,7 @@ import {MaterialModule} from "./material/material.module";
 import { GroupManagerComponent } from './pages/management/group-manager/group-manager.component';
 import { ProductManagerComponent } from './pages/management/product-manager/product-manager.component';
 import { MenuComponent } from './pages/menu/menu.component';
+import { SupplyComponent } from './pages/supply/supply.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MenuComponent } from './pages/menu/menu.component';
     ManagementComponent,
     GroupManagerComponent,
     ProductManagerComponent,
-    MenuComponent
+    MenuComponent,
+    SupplyComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,6 +41,7 @@ import { MenuComponent } from './pages/menu/menu.component';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'management', component: ManagementComponent },
       { path: 'menu', component: MenuComponent },
+      { path: 'supply', component: SupplyComponent },
     ]),
     BrowserAnimationsModule
   ],

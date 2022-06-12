@@ -4,21 +4,21 @@ import {IGroupData} from "../../interfaces/IGroupData";
 import {DataHubService} from "../../hubs/data-hub.service";
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  selector: 'app-supply',
+  templateUrl: './supply.component.html',
+  styleUrls: ['./supply.component.css']
 })
-export class MenuComponent implements OnInit {
+export class SupplyComponent implements OnInit {
   private products: IProductData[] = [];
   public groups: IGroupData[] = [];
   public page: number = 0;
   public position: number = 0;
+  public mode: string = "-";
 
   constructor(public data: DataHubService) { }
 
   public ngOnInit(): void {
     this.data.connectionReady.subscribe(() => {
-      console.log('Ready');
       this.data
         .allProduct()
         .then(x => this.setProductCollection(x));
@@ -30,8 +30,6 @@ export class MenuComponent implements OnInit {
       this.data.productDataChange.subscribe(x => this.setProductCollection(x));
       this.data.groupDataChange.subscribe(x => this.setGroupCollection(x));
     });
-
-    setInterval(() => this.nextAnimation(), 10000)
   }
 
   public setGroupCollection(groups: IGroupData[]) {
@@ -48,19 +46,15 @@ export class MenuComponent implements OnInit {
     return this.products.filter(x => x.group === group.id);
   }
 
-  public getAnimationClass(index: number): string {
-    index = Math.floor(index / 4);
-
-    return index === this.page ? 'fadein' : 'fadeout';
-  }
-
-  private nextAnimation() {
-    this.page++;
-    if (this.page > Math.ceil(this.groups.length / 4) - 1) {
-      this.page = 0;
+  public changeSupply(product: IProductData) {
+    if (this.mode === '-' && product.totalItems > 0) {
+      product.totalItems--;
     }
-    setTimeout(() => {
-      this.position = -(100 * this.page);
-    }, 1000);
+    if (this.mode === '+') {
+      product.totalItems++;
+    }
+
+    this.data.addEditProduct(product).finally(() => {});
   }
+
 }
