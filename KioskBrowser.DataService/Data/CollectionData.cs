@@ -6,4 +6,5 @@ public class CollectionData
     public List<GroupData> Groups = new ();
     public List<ProductData> Products = new ();
     public List<MessageData> Messages = new ();
+    public List<StorageData> Storage = new ();
 }

@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HubConnection, HubConnectionState} from "@microsoft/signalr";
 import * as signalR from "@microsoft/signalr";
-import {BehaviorSubject, Observable, of, Subject} from "rxjs";
-import { IGroupData } from '../interfaces/IGroupData';
+import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {IGroupData} from '../interfaces/IGroupData';
 import {IProductData} from "../interfaces/IProductData";
 import {IMessageData} from "../interfaces/IMessageData";
+import {IStorageData} from "../interfaces/IStorageData";
 import {take} from "rxjs/operators";
 import {environment} from "../../environments/environment";
 
@@ -19,6 +20,10 @@ export class DataHubService {
   public incomingMessageChange: Observable<IMessageData> = this.incomingMessageSubject.asObservable();
   private productChangeSubject: Subject<IProductData[]> = new Subject<any>();
   public productDataChange: Observable<IProductData[]> = this.productChangeSubject.asObservable();
+  private storageChangeSubject: Subject<IStorageData> = new Subject<any>();
+  public storageChangeChange: Observable<IStorageData> = this.storageChangeSubject.asObservable();
+  private storageRemoveSubject: Subject<IStorageData> = new Subject<any>();
+  public storageRemoveChange: Observable<IStorageData> = this.storageRemoveSubject.asObservable();
 
   private connectionReadySubject: Subject<void> = new Subject<any>();
 
@@ -50,6 +55,8 @@ export class DataHubService {
     this.hubConnection.on('AllGroups', (data: any) => this.groupDataChangeSubject.next(data));
     this.hubConnection.on('IncomingMessage', (data: any) => this.incomingMessageSubject.next(data));
     this.hubConnection.on('AllProducts', (data: any) => this.productChangeSubject.next(data));
+    this.hubConnection.on('StorageChange', (data: any) => this.storageChangeSubject.next(data));
+    this.hubConnection.on('StorageRemove', (data: any) => this.storageRemoveSubject.next(data));
   }
 
   public addEditGroup(group: IGroupData): Promise<void> {
@@ -98,8 +105,24 @@ export class DataHubService {
     return this.hubConnection.invoke("RemoveMessage", message.id);
   }
 
-  public allMessages(): Promise<IGroupData[]> {
+  public allMessages(): Promise<IMessageData[]> {
     return this.hubConnection.invoke("AllMessages");
+  }
+
+  public addEditStorage(storageItem: IStorageData): Promise<void> {
+    return this.hubConnection.invoke(
+      "AddEditStorage",
+      storageItem.id,
+      storageItem.key,
+      storageItem.value);
+  }
+
+  public removeStorage(storageItem: IStorageData): Promise<void> {
+    return this.hubConnection.invoke("RemoveStorage", storageItem.id);
+  }
+
+  public allStorage(): Promise<IStorageData[]> {
+    return this.hubConnection.invoke("AllStorage");
   }
 
   constructor() { }
@@ -108,5 +131,6 @@ export class DataHubService {
 export {
   IGroupData,
   IMessageData,
-  IProductData
+  IProductData,
+  IStorageData
 }

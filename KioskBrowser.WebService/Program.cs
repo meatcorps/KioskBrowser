@@ -37,6 +37,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
     builder.RegisterType<GroupBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<MessageBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<ProductBindService>().AsSelf().SingleInstance().AutoActivate();
+    builder.RegisterType<StorageBindService>().AsSelf().SingleInstance().AutoActivate();
 });
 
 var app = builder.Build();

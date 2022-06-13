@@ -16,6 +16,8 @@ import { GroupManagerComponent } from './pages/management/group-manager/group-ma
 import { ProductManagerComponent } from './pages/management/product-manager/product-manager.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { SupplyComponent } from './pages/supply/supply.component';
+import { DartScoreComponent } from './pages/dart-score/dart-score.component';
+import { DartArrowComponent } from './pages/components/dart-arrow/dart-arrow.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SupplyComponent } from './pages/supply/supply.component';
     GroupManagerComponent,
     ProductManagerComponent,
     MenuComponent,
-    SupplyComponent
+    SupplyComponent,
+    DartScoreComponent,
+    DartArrowComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -42,6 +46,7 @@ import { SupplyComponent } from './pages/supply/supply.component';
       { path: 'management', component: ManagementComponent },
       { path: 'menu', component: MenuComponent },
       { path: 'supply', component: SupplyComponent },
+      { path: 'darts', component: DartScoreComponent },
     ]),
     BrowserAnimationsModule
   ],

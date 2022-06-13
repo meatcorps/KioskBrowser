@@ -1,0 +1,16 @@
+<div class="score-container">
+  <mat-form-field appearance="fill" class="scoreinput">
+    <mat-label>Points</mat-label>
+    <mat-select [ngModel]="score" (ngModelChange)="checkMultiply($event)" >
+      <mat-option *ngFor="let scoreItem of scoreItems" [value]="scoreItem">
+        {{scoreItem}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-button-toggle-group [ngModel]="multiply" (ngModelChange)="setMultiply($event)">
+    <mat-button-toggle [value]="1">1x</mat-button-toggle>
+    <mat-button-toggle [disabled]="score === 25 || score === 50" [value]="2">2x</mat-button-toggle>
+    <mat-button-toggle [disabled]="score === 25 || score === 50" [value]="3">3x</mat-button-toggle>
+  </mat-button-toggle-group>
+  <span class="total">{{total}}</span>
+</div>
