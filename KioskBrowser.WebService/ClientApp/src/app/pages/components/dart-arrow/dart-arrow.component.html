@@ -12,5 +12,5 @@
     <mat-button-toggle [disabled]="score === 25 || score === 50" [value]="2">2x</mat-button-toggle>
     <mat-button-toggle [disabled]="score === 25 || score === 50" [value]="3">3x</mat-button-toggle>
   </mat-button-toggle-group>
-  <span class="total">{{total}}</span>
+  <span class="total">{{total < 0 ? 0 : total}}</span>
 </div>

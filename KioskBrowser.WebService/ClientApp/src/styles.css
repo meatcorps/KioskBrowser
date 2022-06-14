@@ -17,7 +17,7 @@ code {
 
 html, body {
   height: 100%;
-  background: #222;
+  background: transparent;
   color: #aaa;
 }
 
@@ -28,4 +28,21 @@ body {
 
 mat-list mat-list-item:first-child span.mat-list-item-content {
   padding-left: 0 !important;
+}
+
+
+body.messageframe {
+  background: transparent !important;
+}
+
+body.management {
+  background: #222;
+}
+
+body.supply {
+  background: #222;
+}
+
+body.menu {
+  background: #222;
 }

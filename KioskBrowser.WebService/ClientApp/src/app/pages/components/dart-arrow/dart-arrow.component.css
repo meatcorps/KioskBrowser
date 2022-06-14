@@ -1,6 +1,6 @@
 .score-container {
   background: rgba(255,255,255,0.1);
-  display: inline-block;
+  display: block;
   border-radius: 4px;
 }
 
@@ -13,7 +13,7 @@ mat-form-field.scoreinput {
   font-size: 13.5px;
   margin-right: 5px;
   margin-left: 5px;
-  width: 100px;
+  width: calc(100% - 192px);
 }
 
 span.total {

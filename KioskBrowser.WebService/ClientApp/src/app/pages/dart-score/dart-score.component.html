@@ -1,3 +1,55 @@
-<app-dart-arrow></app-dart-arrow>
-<app-dart-arrow></app-dart-arrow>
-<app-dart-arrow></app-dart-arrow>
+<div class="padding-container" *ngIf="mode==='creatingPlayers'">
+  <mat-card *ngIf="players.length === 0">
+    <mat-card-title>Dart match!</mat-card-title>
+    Click on "Add Player" for everyone who is in for a dart match! You need at most 1 player and max is 4.
+  </mat-card>
+
+  <mat-card *ngFor="let player of players; let index = index" class="setup-player">
+    <mat-card-title>Setup player {{index + 1}}</mat-card-title>
+    <mat-form-field class="simple editor" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" [(ngModel)]="player.name" maxlength="14">
+    </mat-form-field>
+    <mat-card-actions align="end">
+      <button mat-button (click)="players.splice(index, 1)">Remove</button>
+    </mat-card-actions>
+  </mat-card>
+  <div class="align-right">
+    <button mat-raised-button color="primary" [disabled]="players.length >= 4" (click)="players.push({name: '', score: 501})">Add Player</button>&nbsp;
+    <button mat-raised-button color="primary" [disabled]="isInvalidPlayerSet()" (click)="startMatch()">Start!</button>
+  </div>
+</div>
+
+<div class="padding-container" *ngIf="mode==='playerSession' || mode==='winSession'">
+  <mat-card>
+    <mat-card-title>Total Score</mat-card-title>
+    <div class="score-card-container">
+      <div class="score-card" *ngFor="let player of players; let index = index" [class.current]="currentPlayer === index">
+        <div class="player">{{player.name}}</div>
+        <div class="player-total">{{player.score}}</div>
+      </div>
+    </div>
+    <mat-card-actions align="end">
+      <button mat-button (click)="resetMatch()">Reset match</button>
+    </mat-card-actions>
+  </mat-card>
+  <br>
+  <mat-card *ngIf="mode==='playerSession'">
+    <mat-card-title>Enter score</mat-card-title>
+    <small>Arrow one</small>
+    <app-dart-arrow [reset]="resetSubject" (change)="this.score1 = $event;"></app-dart-arrow>
+    <small>Arrow two</small>
+    <app-dart-arrow [reset]="resetSubject" (change)="this.score2 = $event;"></app-dart-arrow>
+    <small>Arrow three</small>
+    <app-dart-arrow [reset]="resetSubject" (change)="this.score3 = $event;"></app-dart-arrow>
+    <div class="total">Total: {{currentTotalScore()}}</div>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" [disabled]="players[currentPlayer].score < score1 + score2 + score3 || score1 < 0 || score2 < 0 || score3 < 0" (click)="submitScore()">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card *ngIf="mode==='winSession'">
+    <mat-card-title>We have a winner!</mat-card-title>
+    <img src="./assets/winner.gif">
+  </mat-card>
+</div>

@@ -1,0 +1,13 @@
+<div class="background"  *ngIf="mode==='playerSession' || mode==='winSession'">
+  <h1 class="dartMatch" *ngIf="mode==='playerSession'">Dart match | now is {{players[currentPlayer].name}}</h1>
+  <div class="score-card-container" *ngIf="mode==='playerSession'">
+    <div class="score-card" *ngFor="let player of players; let index = index" [class.current]="currentPlayer === index">
+      <div class="player">{{player.name}}:</div>
+      <div class="player-total">{{player.score}}</div>
+    </div>
+  </div>
+
+  <div class="score-card-container" *ngIf="mode==='winSession'">
+    <h1 class="win">{{players[currentPlayer].name}} has won the match!</h1>
+  </div>
+</div>

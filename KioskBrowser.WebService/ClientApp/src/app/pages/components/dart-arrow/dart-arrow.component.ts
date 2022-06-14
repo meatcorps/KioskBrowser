@@ -7,9 +7,9 @@ import {Subject} from "rxjs";
   styleUrls: ['./dart-arrow.component.css']
 })
 export class DartArrowComponent implements OnInit {
-  scoreItems: number[] = [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,25,50 ];
-  score: number = 1;
-  multiply: number = 1;
+  public scoreItems: number[] = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,25,50 ];
+  public score: number = -1;
+  public multiply: number = 1;
 
   @Input() reset: Subject<void>;
 
@@ -20,8 +20,9 @@ export class DartArrowComponent implements OnInit {
   public ngOnInit(): void {
     if (this.reset) {
       this.reset.subscribe(() => {
-        this.score = 1;
+        this.score = -1;
         this.multiply = 1;
+        this.update();
       });
     }
   }
@@ -41,7 +42,7 @@ export class DartArrowComponent implements OnInit {
 
   public update() {
     if (this.change) {
-      this.change.next(this.score);
+      this.change.next(this.total);
     }
   }
 

@@ -18,6 +18,7 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { SupplyComponent } from './pages/supply/supply.component';
 import { DartScoreComponent } from './pages/dart-score/dart-score.component';
 import { DartArrowComponent } from './pages/components/dart-arrow/dart-arrow.component';
+import { MessagesFrameComponent } from './pages/messages-frame/messages-frame.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DartArrowComponent } from './pages/components/dart-arrow/dart-arrow.com
     MenuComponent,
     SupplyComponent,
     DartScoreComponent,
-    DartArrowComponent
+    DartArrowComponent,
+    MessagesFrameComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -47,6 +49,7 @@ import { DartArrowComponent } from './pages/components/dart-arrow/dart-arrow.com
       { path: 'menu', component: MenuComponent },
       { path: 'supply', component: SupplyComponent },
       { path: 'darts', component: DartScoreComponent },
+      { path: 'messageframe', component: MessagesFrameComponent },
     ]),
     BrowserAnimationsModule
   ],

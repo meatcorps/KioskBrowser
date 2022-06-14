@@ -1,0 +1,49 @@
+.background {
+  background: linear-gradient(90deg, rgba(120,3,102,1) 0%, rgba(120,3,102,0) 100%);
+}
+.background {
+  padding: 22px;
+  height: 100px;
+}
+
+.background h1 {
+  color: white;
+  display: inline-block;
+  margin-right: 1em;
+  font-size: 40px;
+  margin-top: 7px;
+  vertical-align: middle;
+}
+
+.score-card-container {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 40px;
+  margin-left: 1em;
+}
+
+.score-card {
+  display: inline-block;
+  margin-right: 2em;
+}
+
+.player {
+  display: inline-block;
+  color: gray;
+}
+
+.player-total {
+  display: inline-block;
+  color: white;
+  margin-left: 0.2em;
+}
+
+* {
+  text-shadow: 0 0 15px black;
+}
+
+
+h1 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
