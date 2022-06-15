@@ -10,7 +10,8 @@ document.body.insertAdjacentHTML("afterend",
     '       <span class="now"><span class="info">Now:</span> <span class="content">The ipsumsums (0:52 / 1:00)</span></span>' +
     '       <span class="next"><span class="info">Next:</span> <span class="content">Lorems!</span></span>' +
     '   </div>' +
-    '</div>');
+    '</div>' + 
+    '<iframe src="http://localhost:5000/app/messageframe/" allowtransparency="true" style="position: fixed;right: 0;bottom: 0;width: 50vw;height: 120px;z-index: 2000;"></iframe>');
 
 var currentGarageIndexItem = 0;
 
