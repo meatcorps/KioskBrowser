@@ -24,6 +24,8 @@ export class DataHubService {
   public storageChangeChange: Observable<IStorageData> = this.storageChangeSubject.asObservable();
   private storageRemoveSubject: Subject<IStorageData> = new Subject<any>();
   public storageRemoveChange: Observable<IStorageData> = this.storageRemoveSubject.asObservable();
+  private newPhotoSubject: Subject<string> = new Subject<any>();
+  public newPhoto: Observable<string> = this.newPhotoSubject.asObservable();
 
   private connectionReadySubject: Subject<void> = new Subject<any>();
 
@@ -123,6 +125,14 @@ export class DataHubService {
 
   public allStorage(): Promise<IStorageData[]> {
     return this.hubConnection.invoke("AllStorage");
+  }
+
+  public startListenForPhotos(): Observable<string> {
+    this.hubConnection.invoke("StartPhotoStream");
+    this.hubConnection.on('newPhoto', data => {
+      this.newPhotoSubject.next(data);
+    });
+    return this.newPhoto;
   }
 
   constructor() { }

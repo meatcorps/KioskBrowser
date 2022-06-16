@@ -45,7 +45,7 @@ public partial class App : Application
             return true;
         }
 
-        settings = SettingsLoader.ReadConfig(settingsFile);
+        settings = SettingsLoader<Settings>.ReadConfig(settingsFile);
         return false;
     }
 }

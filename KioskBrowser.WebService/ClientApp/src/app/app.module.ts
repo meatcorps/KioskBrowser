@@ -19,6 +19,7 @@ import { SupplyComponent } from './pages/supply/supply.component';
 import { DartScoreComponent } from './pages/dart-score/dart-score.component';
 import { DartArrowComponent } from './pages/components/dart-arrow/dart-arrow.component';
 import { MessagesFrameComponent } from './pages/messages-frame/messages-frame.component';
+import { PhotoViewerComponent } from './pages/photo-viewer/photo-viewer.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MessagesFrameComponent } from './pages/messages-frame/messages-frame.co
     SupplyComponent,
     DartScoreComponent,
     DartArrowComponent,
-    MessagesFrameComponent
+    MessagesFrameComponent,
+    PhotoViewerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -49,6 +51,7 @@ import { MessagesFrameComponent } from './pages/messages-frame/messages-frame.co
       { path: 'menu', component: MenuComponent },
       { path: 'supply', component: SupplyComponent },
       { path: 'darts', component: DartScoreComponent },
+      { path: 'photo', component: PhotoViewerComponent },
       { path: 'messageframe', component: MessagesFrameComponent },
     ]),
     BrowserAnimationsModule

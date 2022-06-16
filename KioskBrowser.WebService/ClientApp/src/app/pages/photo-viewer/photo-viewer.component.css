@@ -1,0 +1,161 @@
+.photo {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.photo.fadein {
+  z-index: 100;
+}
+
+.photo.fadeout {
+  z-index: 10;
+}
+
+.fadein {
+  animation: fadeIn 1s;
+}
+
+.fadeout {
+  animation: fadeOut 1s;
+  opacity: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeIn{
+  0%{opacity: 0; filter: blur(1000px);}
+  50%{opacity: 0; filter: blur(1000px);}
+  100%{opacity: 1; filter: blur(0);}
+}
+
+@keyframes fadeOut{
+  from{opacity: 1; filter: blur(0);}
+  to{opacity: 0; filter: blur(1000px);}
+}
+
+#background {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(-45deg, #634278, #311F3D, #519945, #78302A);
+  background-size: 400% 400%;
+  animation: gradient 45s ease infinite;
+  opacity: 1;
+}
+
+.light {
+  position: absolute;
+  width: 0px;
+  opacity: .75;
+  background-color: white;
+  box-shadow: white 0px 0px 20px 2px;
+  opacity: 0;
+  top: 100vh;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+}
+
+.x1{
+  animation: floatDown 4s infinite linear;
+  transform: scale(1.0);
+}
+
+.x2{
+  animation: floatDown 7s infinite linear;
+  transform: scale(1.6);
+  left: 15%;
+}
+
+.x3{
+  animation: floatDown 2.5s infinite linear;
+  transform: scale(.5);
+  left: -15%;
+}
+
+.x4{
+  animation: floatDown 4.5s infinite linear;
+  transform: scale(1.2);
+  left: -34%;
+}
+
+.x5{
+  animation: floatDown 8s infinite linear;
+  transform: scale(2.2);
+  left: -57%;
+}
+
+.x6{
+  animation: floatDown 3s infinite linear;
+  transform: scale(.8);
+  left: -81%;
+}
+
+.x7{
+  animation: floatDown 5.3s infinite linear;
+  transform: scale(3.2);
+  left: 37%;
+}
+
+.x8{
+  animation: floatDown 4.7s infinite linear;
+  transform: scale(1.7);
+  left: 62%;
+}
+
+.x9{
+  animation: floatDown 4.1s infinite linear;
+  transform: scale(0.9);
+  left: 85%;
+}
+
+@keyframes floatDown{
+  0%{top: -100vh; opacity: 0;}
+  25%{opacity: 1;}
+  50%{top: 0vh; opacity: .8;}
+  75%{opacity: 1;}
+  100%{top: 100vh; opacity: 0;}
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+img.logo {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 1000;
+  width: 300px;
+}
+
+.info {
+  background: linear-gradient(90deg, rgba(120,3,102,1) 0%, rgba(120,3,102,0) 100%);
+}
+
+.info {
+  position: fixed;
+  left: 0px;
+  top: 50px;
+  height: 150px;
+  width: 100vw;
+  z-index: 599;
+  font-size: 70px;
+  padding: 20px 0px 20px 320px;
+  color: white;
+  text-shadow: 0px 0px 15px black;
+}

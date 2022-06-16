@@ -5,7 +5,7 @@ namespace KioskBrowser.Data;
 
 public static class SettingsWriter
 {
-    public static void SaveConfig(FileInfo file, Settings settings)
+    public static void SaveConfig<T>(FileInfo file, T settings)
     {
         var json = JsonConvert.SerializeObject(settings);
         File.WriteAllText(file.FullName, json);

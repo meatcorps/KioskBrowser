@@ -3,18 +3,19 @@ using Newtonsoft.Json;
 
 namespace KioskBrowser.Data;
 
-public static class SettingsLoader
+public static class SettingsLoader<T>
 {
-    public static Settings? ReadConfig(FileInfo file)
+    public static T? ReadConfig(FileInfo file)
     {
         var stream = File.ReadAllText(file.FullName);
         
-        var settings = JsonConvert.DeserializeObject<Settings>(stream);
+        var settings = JsonConvert.DeserializeObject<T>(stream);
 
         if (settings is null)
-            return null;
+            return default;
         
-        FixPathForSettings(file, settings);
+        if (settings is Settings fixPathSettings)
+            FixPathForSettings(file, fixPathSettings);
         
         return settings;
     }

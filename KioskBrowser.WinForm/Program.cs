@@ -36,7 +36,7 @@ static class Program
             return false;
         }
 
-        settings = SettingsLoader.ReadConfig(settingsFile);
+        settings = SettingsLoader<Settings>.ReadConfig(settingsFile);
         return true;
     }
 }

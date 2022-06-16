@@ -25,9 +25,13 @@
         <None Update="start.bat">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <Content Update="settings.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\KioskBrowser.Core\KioskBrowser.Core.csproj" />
       <ProjectReference Include="..\KioskBrowser.DataService\KioskBrowser.DataService.csproj" />
     </ItemGroup>
 

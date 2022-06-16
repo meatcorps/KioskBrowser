@@ -1,14 +1,22 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using KioskBrowser.Data;
 using KioskBrowser.DataService;
 using KioskBrowser.DataService.Services;
 using KioskBrowser.DataService.Utilities;
 using KioskBrowser.WebService.Bind;
 using KioskBrowser.WebService.Hubs;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.FileProviders;
+using Settings = KioskBrowser.WebService.Config.Settings;
 
-var builder = WebApplication.CreateBuilder(args);
+var settings = SettingsLoader<Settings>.ReadConfig(new FileInfo(args[0]));
+if (settings is null)
+{
+    Console.WriteLine("Something wrong with the config");
+    Environment.Exit(-1);
+}
+    
+var builder = WebApplication.CreateBuilder(settings!.StartArguments);
 
 // Add services to the container.
 
@@ -34,10 +42,14 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
         .WithParameter("file", FileUtilities.GetExecutingFile("data.json")!)
         .OnActivated((p) => p.Instance.Load());
     builder.RegisterType<DataCollectionService>().AsSelf().SingleInstance().AutoActivate();
+    builder.RegisterType<PhotoWatcherService>().AsSelf().SingleInstance()
+        .WithParameter("targetFolder", settings.PictureFileWatchLocation!)
+        .WithParameter("urlFolder", settings.PictureUrlLocation!);
     builder.RegisterType<GroupBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<MessageBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<ProductBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<StorageBindService>().AsSelf().SingleInstance().AutoActivate();
+    builder.RegisterType<PhotoBindService>().AsSelf().SingleInstance().AutoActivate();
 });
 
 var app = builder.Build();
@@ -48,13 +60,8 @@ app.UseStaticFiles(new StaticFileOptions()
         FileUtilities.GetExecutingFile("wwwroot").FullName),
     RequestPath = new PathString("/app")
 });
-// app.UseRouting();
 
 app.UseCors("CorsPolicy");
-
-/* app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}"); */
 
 app.MapFallbackToFile("index.html");
 
