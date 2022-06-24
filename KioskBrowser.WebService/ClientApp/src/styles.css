@@ -41,8 +41,27 @@ body.management {
 
 body.supply {
   background: #222;
+  overflow: auto;
 }
 
 body.menu {
   background: #222;
+}
+
+.hidden {
+  display: none;
+}
+
+.offline {
+  background: black;
+  color: red;
+  width: 100vw;
+  height: 100vh;
+  font-size: 100px;
+  text-align: center;
+}
+
+.offline h1 {
+  font-size: 100px;
+  line-height: 100vh;
 }

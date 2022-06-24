@@ -89,14 +89,18 @@ export class DartScoreComponent implements OnInit {
       return;
     }
 
-    this.resetSubject.next();
-    if (this.currentPlayer === this.players.length - 1) {
-      this.currentPlayer = 0;
-    } else {
-      this.currentPlayer++;
-    }
-    this.globalStorage.set('dartCurrentPlayer', this.currentPlayer.toString());
+    this.nextPlayer();
   }
+
+public nextPlayer() {
+  this.resetSubject.next();
+  if (this.currentPlayer === this.players.length - 1) {
+    this.currentPlayer = 0;
+  } else {
+    this.currentPlayer++;
+  }
+  this.globalStorage.set('dartCurrentPlayer', this.currentPlayer.toString());
+}
 
   public win(): void {
     this.mode = 'winSession';

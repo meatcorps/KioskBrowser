@@ -8,6 +8,8 @@ import {IMessageData} from "../interfaces/IMessageData";
 import {IStorageData} from "../interfaces/IStorageData";
 import {take} from "rxjs/operators";
 import {environment} from "../../environments/environment";
+import { RetryPolicy } from './retrypolicy';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +30,12 @@ export class DataHubService {
   public newPhoto: Observable<string> = this.newPhotoSubject.asObservable();
 
   private connectionReadySubject: Subject<void> = new Subject<any>();
+  private reconnectPolicy: signalR.IRetryPolicy = new RetryPolicy()
 
   public get connected(): boolean {
+    if (!this.hubConnection) {
+      return false;
+    }
     return this.hubConnection.state === HubConnectionState.Connected;
   }
 
@@ -40,9 +46,16 @@ export class DataHubService {
     return this.connectionReadySubject.pipe(take(1));
   }
 
+  constructor(private http: HttpClient) {
+  }
+
   public startConnection() {
+    if (this.connected) {
+      return;
+    }
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(environment.url + '/data')
+      .withAutomaticReconnect(this.reconnectPolicy)
       .build();
     this.hubConnection
       .start()
@@ -52,6 +65,7 @@ export class DataHubService {
       })
       .catch(err => {
         console.log('Error while starting connection: ' + err);
+        setTimeout(() => this.startConnection(), 1000);
       });
 
     this.hubConnection.on('AllGroups', (data: any) => this.groupDataChangeSubject.next(data));
@@ -135,7 +149,30 @@ export class DataHubService {
     return this.newPhoto;
   }
 
-  constructor() { }
+  public httpGetAllGroups(): Observable<IGroupData[]> {
+    var data: any = this.http
+    .get(environment.url + '/Supply/GetGroups/').pipe(take(1));
+    return data;
+  }
+
+  public httpGetAllProducts(): Observable<IProductData[]> {
+    var data: any = this.http
+    .get(environment.url + '/Supply/GetProducts/').pipe(take(1));
+    return data;
+  }
+
+  public httpAddSupplyProduct(product: IProductData): Observable<IProductData> {
+    var data: any = this.http
+    .get(environment.url + '/Supply/Products/Add/' + product.id).pipe(take(1));
+    return data;
+  }
+
+  public httpRemoveSupplyProduct(product: IProductData): Observable<IProductData> {
+    var data: any = this.http
+    .get(environment.url + '/Supply/Products/Subtract/' + product.id).pipe(take(1));
+    return data;
+  }
+
 }
 
 export {

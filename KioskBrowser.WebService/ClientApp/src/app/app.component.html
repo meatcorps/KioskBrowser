@@ -1,3 +1,8 @@
 <body class="{{currentPage.toLowerCase()}}">
+  <div [class.hidden]="!data.connected && currentPage != 'supply'">
     <router-outlet></router-outlet>
+  </div>
+  <div class="offline" *ngIf="!data.connected && currentPage != 'supply'">
+    <h1>Offline</h1>
+  </div>
 </body>

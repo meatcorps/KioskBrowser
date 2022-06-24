@@ -5,7 +5,9 @@ using KioskBrowser.DataService;
 using KioskBrowser.DataService.Services;
 using KioskBrowser.DataService.Utilities;
 using KioskBrowser.WebService.Bind;
+using KioskBrowser.WebService.Controllers;
 using KioskBrowser.WebService.Hubs;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.FileProviders;
 using Settings = KioskBrowser.WebService.Config.Settings;
 
@@ -20,7 +22,7 @@ var builder = WebApplication.CreateBuilder(settings!.StartArguments);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
@@ -51,7 +53,6 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
     builder.RegisterType<StorageBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<PhotoBindService>().AsSelf().SingleInstance().AutoActivate();
 });
-
 var app = builder.Build();
 
 app.UseStaticFiles(new StaticFileOptions()
@@ -67,5 +68,7 @@ app.MapFallbackToFile("index.html");
 
 app.MapHub<PingHub>("/ping");
 app.MapHub<DataHub>("/data");
+
+app.MapControllers();
 
 app.Run();

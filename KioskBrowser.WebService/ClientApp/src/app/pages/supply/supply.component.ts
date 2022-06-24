@@ -18,18 +18,12 @@ export class SupplyComponent implements OnInit {
   constructor(public data: DataHubService) { }
 
   public ngOnInit(): void {
-    this.data.connectionReady.subscribe(() => {
-      this.data
-        .allProduct()
-        .then(x => this.setProductCollection(x));
+    this.load();
+  }
 
-      this.data
-        .allGroups()
-        .then(x => this.setGroupCollection(x));
-
-      this.data.productDataChange.subscribe(x => this.setProductCollection(x));
-      this.data.groupDataChange.subscribe(x => this.setGroupCollection(x));
-    });
+  public load(): void {
+    this.data.httpGetAllGroups().subscribe(x => this.groups = x);
+    this.data.httpGetAllProducts().subscribe(x => this.products = x);
   }
 
   public setGroupCollection(groups: IGroupData[]) {
@@ -49,12 +43,16 @@ export class SupplyComponent implements OnInit {
   public changeSupply(product: IProductData) {
     if (this.mode === '-' && product.totalItems > 0) {
       product.totalItems--;
+      this.data.httpRemoveSupplyProduct(product).subscribe(x => {
+        this.load();
+      });
     }
     if (this.mode === '+') {
       product.totalItems++;
+      this.data.httpAddSupplyProduct(product).subscribe(x => {
+        this.load();
+      });
     }
-
-    this.data.addEditProduct(product).finally(() => {});
   }
 
 }

@@ -1,5 +1,5 @@
 ﻿{
-  "StartArguments": ["--urls", "http://0.0.0.0:5000"],
-  "PictureFileWatchLocation": "C:\\Users\\sinsy\\RiderProjects\\KioskBrowser\\KioskBrowser.WebService\\bin\\Debug\\net6.0\\wwwroot\\photos\\",
+  "StartArguments": [ "--urls", "http://0.0.0.0:5000" ],
+  "PictureFileWatchLocation": "C:\\Repo\\KioskBrowser\\KioskBrowser.WebService\\bin\\Debug\\net6.0\\wwwroot\\photos\\",
   "PictureUrlLocation": "http://localhost:5000/app/photos/"
 }
