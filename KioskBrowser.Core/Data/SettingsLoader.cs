@@ -26,5 +26,10 @@ public static class SettingsLoader<T>
         {
             settings!.FilesToInject![i] = file.Directory?.FullName + Path.DirectorySeparatorChar + settings.FilesToInject[i];
         }
+
+        if (settings!.CacheDirectory is null)
+        {
+            settings.CacheDirectory = "";
+        }
     }
 }

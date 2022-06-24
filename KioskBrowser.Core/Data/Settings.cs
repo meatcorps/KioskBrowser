@@ -18,4 +18,6 @@ public class Settings
     public bool AlwaysOnTop;
     public bool ShowDevTools;
     public string[]? FilesToInject;
+    public bool? CacheEnabled;
+    public string? CacheDirectory;
 }

@@ -50,7 +50,9 @@ partial class Form1
     public void InitializeChromium()
     {
         CefSettings cefSettings = new CefSettings();
-        cefSettings.CachePath = GetExecutingDirectory()!.FullName + "\\webcache\\";
+        
+        if (Settings.CacheEnabled is not null && Settings.CacheEnabled.Value)
+            cefSettings.CachePath = GetExecutingDirectory()!.FullName + "\\" + Settings.CacheDirectory + "\\";
         
         if (Settings.UserAgent is not null)
             cefSettings.UserAgent = Settings.UserAgent; 
