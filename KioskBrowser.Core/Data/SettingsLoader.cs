@@ -29,7 +29,7 @@ public static class SettingsLoader<T>
 
         if (settings!.CacheDirectory is null)
         {
-            settings.CacheDirectory = "";
+            settings.CacheDirectory = "webcache";
         }
     }
 }
