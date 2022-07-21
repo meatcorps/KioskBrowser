@@ -2,6 +2,7 @@
   <mat-button-toggle-group name="fontStyle" [(ngModel)]="mode" aria-label="Font Style">
     <mat-button-toggle value="+">Add</mat-button-toggle>
     <mat-button-toggle value="-">Subtract</mat-button-toggle>
+    <mat-button-toggle value="x">Select</mat-button-toggle>
   </mat-button-toggle-group>
 </div>
 <div class="spacer"></div>
@@ -17,4 +18,31 @@
       <span class="title">{{product.name}}</span>
     </button>
 
+</div>
+<div class="product-edit">
+  <mat-form-field class="simple editor" appearance="fill" style="width: 300px;">
+    <mat-label>Product name</mat-label>
+    <input matInput placeholder="My awesome product" [(ngModel)]="currentProduct.name">
+  </mat-form-field>&nbsp;
+  <mat-form-field class="simple editor" appearance="fill" style="width: 100px;">
+    <mat-label>Supply</mat-label>
+    <input matInput placeholder="My awesome product" type="number" [(ngModel)]="currentProduct.totalItems">
+  </mat-form-field>&nbsp;
+  <mat-form-field class="simple editor" appearance="fill">
+    <mat-label>Group</mat-label>
+    <mat-select [(ngModel)]="currentProduct.group">
+      <mat-option *ngFor="let group of groups" [value]="group.id">
+        {{group.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-icon-button color="accent" [disabled]="currentProduct.group === '' || currentProduct.name === ''" (click)="addCurrentProduct()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-icon-button color="accent" [disabled]="currentProduct.id === ''" (click)="saveCurrentProduct()">
+    <mat-icon>save</mat-icon>
+  </button>
+  <button mat-icon-button color="accent" [disabled]="currentProduct.id === ''" (click)="removeCurrentProduct()">
+    <mat-icon>remove</mat-icon>
+  </button>
 </div>
