@@ -174,7 +174,8 @@ button:focus{
 .group-container .group ul li {
   line-height: 1.8em;
   display: flex;
-  border-bottom: 2px dashed;
+  border-bottom: 2px dashed red;
+  color: white;
 }
 
 .group-container .group ul li .title {
@@ -189,6 +190,7 @@ button:focus{
   left: 0;
   top: 0;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .soldout {
@@ -198,5 +200,17 @@ button:focus{
 
 
 h1 {
-  color: #af77c2;
+  color: red;
+}
+
+#video1 {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#video2 {
+  position: absolute;
+  left: 1920px;
+  top: 0;
 }

@@ -42,7 +42,7 @@
 #background {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(-45deg, #634278, #311F3D, #519945, #78302A);
+  background: linear-gradient(-45deg, red, black, gray, darkred);
   background-size: 400% 400%;
   animation: gradient 45s ease infinite;
   opacity: 1;
@@ -52,8 +52,8 @@
   position: absolute;
   width: 0px;
   opacity: .75;
-  background-color: white;
-  box-shadow: white 0px 0px 20px 2px;
+  background-color: red;
+  box-shadow: black 0px 0px 20px 2px;
   opacity: 0;
   top: 100vh;
   bottom: 0px;
@@ -144,7 +144,7 @@ img.logo {
 }
 
 .info {
-  background: linear-gradient(90deg, rgba(120,3,102,1) 0%, rgba(120,3,102,0) 100%);
+  background: linear-gradient(90deg, rgba(192,0,0,1) 0%, rgba(192,0,0,0) 100%);
 }
 
 .info {
