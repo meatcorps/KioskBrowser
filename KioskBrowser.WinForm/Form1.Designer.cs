@@ -33,18 +33,15 @@ partial class Form1
     /// </summary>
     private void InitializeComponent()
     {
-        StartPosition = FormStartPosition.Manual;
-        this.components = new System.ComponentModel.Container();
-        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-        this.Text = Settings.AppName;
-        this.Bounds = new Rectangle(Settings.X, Settings.Y, Settings.Width, Settings.Height);
-        this.ClientSize = new Size(Settings.Width, Settings.Height);
-        this.TopMost = Settings.AlwaysOnTop;
-        
-        if (Settings.WindowLess)
-            this.FormBorderStyle = FormBorderStyle.None;
+            this.SuspendLayout();
+            // 
+            // Form1
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.ResumeLayout(false);
 
-        InitializeChromium();
     }
     
     public void InitializeChromium()
