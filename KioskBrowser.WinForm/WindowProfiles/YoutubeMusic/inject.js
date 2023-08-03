@@ -1,15 +1,104 @@
 ﻿const style = document.createElement('style');
 style.innerHTML = `
-    ytmusic-app {width: 50vw !important;}
-    ytmusic-app > * {width: 50vw !important;}   
-    ytmusic-app > .ytmusic-app > * {width: 50vw;transition: none !important;}
-    ytmusic-player[player-ui-state_="PLAYER_PAGE_OPEN"] {position: absolute;left: 50vw;top: -64px;height: 100vh;width: 50vw;animation: grow-into-place 0ms cubic-bezier(0.2,0,0.6,1) !important; max-width:  none !important;}
-    ytmusic-player#player[player-ui-state_="MINIPLAYER"] {position: fixed;top: calc(-100vh - 64px);width: 50vw;height: 100vh;left: 50vw;animation: none !important;z-index: 4000; max-width:  none !important;}
-    ytmusic-player[player-ui-state_="PLAYER_BAR_ONLY"] {position: absolute;top: calc(-100vh - 64px);height: 100vh;width: 50vw !important;left: 50vw;max-height: none !important;max-width:  none !important;}
-    #content[role="main"] {}
-    ytmusic-browse-response#browse-page {overflow: auto;height: calc(100vh - 202px);margin-top: 64px;}
-    body {overflow: hidden !important;}
-    ytmusic-search-page#search-page {overflow: auto;height: calc(100vh - 200px);margin-top: 64px;}
+   
+ytmusic-app {
+    width: 50vw;
+}
+
+ ytmusic-app > .ytmusic-app > * {transition: none !important;}
+
+ytmusic-browse-response .background-gradient {
+    height: calc(100vh - 173px);
+    overflow: auto;
+}
+
+ytmusic-player-bar {
+    width: 50vw !important;
+}
+
+div#player-bar-background {
+    width: 50vw;
+}
+
+div#right-content {
+    right: 50vw;
+}
+
+.center-content.style-scope.ytmusic-nav-bar {
+    align-items: self-start !important;
+    position: absolute !important;
+    left: 250px !important;
+    margin-left: 0 !important;
+    transform: none !important;
+}
+
+ytmusic-player-page#player-page {
+    width: calc(50vw - 240px);
+}
+
+ytmusic-player[player-ui-state="PLAYER_PAGE_OPEN"] {
+    position: absolute;
+    left: calc(50vw - 238px);
+    top: -64px;
+    height: 100vh;
+    width: 50vw;
+    animation: grow-into-place 0ms cubic-bezier(0.2,0,0.6,1) !important;
+    max-width:  none !important;
+}
+
+ytmusic-player#player[player-ui-state="MINIPLAYER"] {
+    position: fixed;
+    top: calc(-100vh - 64px);
+    width: 50vw;
+    height: 100vh;
+    left: calc(50vw - 238px);
+    animation: none !important;
+    z-index: 4000;
+    max-width:  none !important;
+}
+
+ytmusic-player[player-ui-state="PLAYER_BAR_ONLY"] {
+    position: absolute;
+    top: calc(-100vh - 64px);
+    height: 100vh;width: 50vw !important;
+    left: calc(50vw - 238px);
+    max-height: none !important;
+    max-width:  none !important;
+}
+
+
+div#nav-bar-background {
+    background: none !important;
+    border: none !important;
+}
+
+ytmusic-tabbed-search-results-renderer {
+    height: calc(100vh - 136px);
+    overflow: auto;
+}
+
+body {
+    overflow: hidden !important;
+}
+
+div#main-panel {
+    width: 0px;
+}
+
+.side-panel.modular.ytmusic-player-page {
+    position: absolute;
+    margin-left: 0;
+    width: 49vw;
+    height: calc(100vh - 200px);
+}
+
+ytmusic-av-toggle {
+    margin-top: -69px;
+}
+
+ytmusic-carousel#ytmusic-carousel {
+    overflow-x: auto;
+}
     
     img.garagelogo {position: fixed;z-index: 2000;left: calc(50vw + 30px);top: 30px;width: 300px;}
 

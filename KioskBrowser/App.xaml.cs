@@ -37,7 +37,7 @@ public partial class App : Application
 
     private static bool GetSettings(StartupEventArgs e, out Settings? settings)
     {
-        var settingsFile = new FileInfo(e.Args[0]);
+        var settingsFile = e.Args.Length == 0 ? new FileInfo("WindowProfiles\\YoutubeMusic\\settings.json") : new FileInfo(e.Args[0]);
         if (!settingsFile.Exists)
         {
             Console.WriteLine("ERROR unable to find file!");

@@ -19,7 +19,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CefSharp.WinForms.NETCore" Version="102.0.90" />
+      <PackageReference Include="CefSharp.WinForms.NETCore" Version="115.3.110" />
       <PackageReference Include="System.Reactive" Version="5.0.0" />
     </ItemGroup>
 
