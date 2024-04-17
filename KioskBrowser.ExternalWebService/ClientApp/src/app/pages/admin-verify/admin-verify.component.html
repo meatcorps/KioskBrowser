@@ -1,0 +1,32 @@
+<div class="code-login" *ngIf="admin === ''">
+  <mat-form-field class="example-full-width">
+    <mat-label>Enter admin code</mat-label>
+    <input matInput [(ngModel)]="userCodeInput" type="password">
+  </mat-form-field>
+  <p>This page is only for staff</p>
+  <br>
+  <button mat-flat-button color="primary" (click)="enterCode(userCodeInput)">I AM THE LAW!</button>
+</div>
+<div class="verify-page" *ngIf="admin !== '' && ready">
+  <mat-toolbar>
+    <h1 *ngIf="mode==='mess'">Messages: {{current.total}}</h1>
+    <h1 *ngIf="mode==='pho'">Photos: {{current.total}}</h1>
+  </mat-toolbar>
+
+  <p><small><br>Swipe left to decline or right to accept {{test}}</small></p>
+  <div class="accept-or-decline" *ngIf="current.total > 0" (swipeleft)="decline()" (swiperight)="accept()">
+    <p><strong *ngIf="current.object.Who">{{current.object.Who}}:<br></strong>{{current.object.Message}}</p>
+    <p *ngIf="current.object.Data"><img [src]="'data:image/jpeg;base64,' + current.object.Data" draggable="false"></p>
+  </div>
+  <div class="accept-or-decline" *ngIf="current.total == 0">
+    Good job all done!
+  </div>
+  <div class="accepted overlay" [style.opacity]="animationEffectAccept"></div>
+  <div class="declined overlay" [style.opacity]="animationEffectDecline"></div>
+</div>
+<div class="footer" *ngIf="admin !== '' && ready">
+  <button mat-flat-button color="secondary" (click)="enablePushNotifications()">PUSH</button>&nbsp;
+  <button mat-flat-button color="primary" (click)="switch('mess')" [disabled]="mode==='mess'"><mat-icon fontIcon="mail"></mat-icon>{{totalMessages}}</button>&nbsp;
+  <button mat-flat-button color="primary" (click)="switch('pho')" [disabled]="mode==='pho'"><mat-icon fontIcon="photo"></mat-icon>{{totalPictures}}</button>&nbsp;
+  <button mat-flat-button color="primary" routerLink="/home"><mat-icon fontIcon="backspace"></mat-icon></button>
+</div>

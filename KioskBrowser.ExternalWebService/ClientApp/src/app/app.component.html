@@ -1,0 +1,19 @@
+<body>
+  <h1 *ngIf="!dataHub.connected" class="loading-body">
+    <p>Connecting...<br><br></p>
+    <img src="assets/loading.gif" style="width: 100%; max-width: 300px;">
+  </h1>
+  <div class="container" *ngIf="codeService.CodeValid() && dataHub.connected">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="container code-login" *ngIf="!codeService.CodeValid() && dataHub.connected">
+    <mat-form-field class="example-full-width">
+      <mat-label>Enter welcome code</mat-label>
+      <input matInput [(ngModel)]="userCodeInput">
+    </mat-form-field>
+    <p>Check out one of the TV screens for the code</p>
+    <br>
+    <button mat-flat-button color="primary" (click)="enterCode(userCodeInput)">Enter</button>
+    <p><br>{{errorMessage}}</p>
+  </div>
+</body>

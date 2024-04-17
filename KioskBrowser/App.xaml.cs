@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using KioskBrowser.Core.Data;
 using KioskBrowser.Data;
 
 namespace KioskBrowser;

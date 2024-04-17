@@ -1,0 +1,29 @@
+.verify-page {
+  text-align: center;
+  user-select: none;
+}
+
+.verify-page img {
+  width: 100%;
+  user-select: none;
+}
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+}
+
+.overlay.accepted {
+  box-shadow: inset 0px 0px 100px green;
+}
+.overlay.declined {
+  box-shadow: inset 0px 0px 100px red;
+}
+
+.accept-or-decline {
+  height: calc(100vh - 200px);
+}

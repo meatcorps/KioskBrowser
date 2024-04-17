@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using KioskBrowser.Core.Data;
 using Newtonsoft.Json;
 
 namespace KioskBrowser.Data;

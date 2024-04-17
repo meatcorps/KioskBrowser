@@ -1,0 +1,43 @@
+<input #photoInput hidden="true" multiple="multiple" type="file" onclick="this.value=null" (change)="uploadPhotoInputChange($event)" accept=".jpg,.jpeg"/>
+<div *ngIf="toUpload.length > 0 && !uploading" class="upload-list">
+  <p><em><br>We’ll check the picture{{toUpload.length > 1 ? 's' : ''}} and message{{toUpload.length > 1 ? 's' : ''}} before showing it.</em></p>
+
+  <mat-card class="toUpload" *ngFor="let uploadItem of toUpload; index as i">
+    <mat-card-header>
+      <mat-card-title>Picture #{{i + 1}}</mat-card-title>
+      <mat-card-subtitle>Do you want to include a message with this picture?</mat-card-subtitle>
+    </mat-card-header>
+    <img [src]="uploadItem.base64" alt="">
+    <mat-card-content>
+      <mat-form-field class="example-full-width">
+        <mat-label>Message (Optional)</mat-label>
+        <input matInput [(ngModel)]="uploadItem.metadata" maxlength="140" placeholder="max 140 characters">
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="uploading" class="upload-list uploading">
+  <h1>Sending!</h1>
+  <p>Keep this screen open!</p>
+  <circle-progress
+    [percent]="uploadPercentage"
+    [radius]="140"
+    [subtitle]="statusText"
+    titleFontSize="4em"
+    subtitleFontSize="1em"
+    titleColor="#c2185b"
+    unitsColor="#ffffff"
+    unitsFontSize="1em"
+    [outerStrokeWidth]="16"
+    [innerStrokeWidth]="8"
+    [outerStrokeColor]="'#c2185b'"
+    [innerStrokeColor]="'#666666'"
+    [animation]="false"
+  ></circle-progress><br>
+  <img [src]="currentImage" width="100">
+</div>
+<div class="footer" *ngIf="!uploading">
+  <button mat-flat-button color="secondary" routerLink="/home"><mat-icon fontIcon="cancel"></mat-icon> Cancel</button>
+  &nbsp;
+  <button mat-flat-button color="primary" (click)="upload()"><mat-icon fontIcon="mail"></mat-icon> Send</button>
+</div>

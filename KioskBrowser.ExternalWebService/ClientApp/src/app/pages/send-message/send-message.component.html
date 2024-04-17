@@ -1,0 +1,19 @@
+<mat-toolbar><mat-icon fontIcon="mail"></mat-icon>&nbsp; Send message</mat-toolbar><br>
+<mat-form-field class="example-full-width">
+  <mat-label>Who</mat-label>
+  <input matInput [(ngModel)]="who" maxlength="20" placeholder="max 20 characters">
+</mat-form-field>
+<br>
+<mat-form-field class="example-full-width">
+  <mat-label>Message</mat-label>
+  <input matInput [(ngModel)]="message" maxlength="140" placeholder="max 140 characters">
+</mat-form-field>
+<br>
+<div class="align-right">
+  <button mat-flat-button color="primary" [disabled]="sendingMessage || who.trim() === '' || message.trim() === ''" (click)="send(who, message)"><mat-icon fontIcon="mail"></mat-icon> Send</button>
+</div>
+<br>
+<p><em>We’ll check the message before showing it.</em></p>
+<div class="footer" *ngIf="!sendingMessage">
+  <button mat-flat-button color="primary" routerLink="/home"><mat-icon fontIcon="backspace"></mat-icon> Go back</button>
+</div>

@@ -1,0 +1,27 @@
+mat-form-field {
+  width: 100%;
+  margin-top: 1em;
+}
+
+mat-card-content {
+  height: 88px;
+}
+
+mat-card {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+mat-card img {
+  width: 100%;
+  margin-top: 1em;
+}
+
+.upload-list {
+  padding-bottom: 80px;
+}
+
+.upload-list.uploading {
+  text-align: center;
+  padding-top: 1em;
+}

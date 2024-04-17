@@ -12,6 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+        <PackageReference Include="MedallionRandom" Version="1.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.5" />
         <PackageReference Include="SignalR.Extras.Autofac" Version="1.2.0" />
@@ -26,7 +27,7 @@
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <Content Update="settings.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
 

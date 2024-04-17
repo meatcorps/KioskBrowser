@@ -1,3 +1,4 @@
+using KioskBrowser.Core.Data;
 using KioskBrowser.Data;
 
 namespace KioskBrowser.WinForm;

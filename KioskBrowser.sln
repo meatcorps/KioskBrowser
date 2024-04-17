@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.WebService", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.PositionUtility", "KioskBrowser.PositionUtility\KioskBrowser.PositionUtility.csproj", "{6EBFA53F-9D1E-4361-9A67-2990C9FEC7B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.ExternalWebService", "KioskBrowser.ExternalWebService\KioskBrowser.ExternalWebService.csproj", "{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{6EBFA53F-9D1E-4361-9A67-2990C9FEC7B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6EBFA53F-9D1E-4361-9A67-2990C9FEC7B5}.Release|x64.ActiveCfg = Release|Any CPU
 		{6EBFA53F-9D1E-4361-9A67-2990C9FEC7B5}.Release|x64.Build.0 = Release|Any CPU
+		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Debug|x64.Build.0 = Debug|Any CPU
+		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Release|x64.ActiveCfg = Release|Any CPU
+		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

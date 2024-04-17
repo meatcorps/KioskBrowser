@@ -1,5 +1,8 @@
 ﻿{
   "StartArguments": [ "--urls", "http://0.0.0.0:5000" ],
   "PictureFileWatchLocation": "C:\\Repo\\KioskBrowser\\KioskBrowser.WebService\\bin\\Debug\\net6.0\\wwwroot\\photos\\",
-  "PictureUrlLocation": "http://localhost:5000/app/photos/"
+  "PictureUrlLocation": "http://localhost:5000/app/photos/",
+  "ExternalUrl": "https://localhost:5000",
+  "ExternalCode": "1337",
+  "ExternalAdminCode": "Admin"
 }

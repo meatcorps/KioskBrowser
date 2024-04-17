@@ -1,8 +1,6 @@
 ﻿// ReSharper disable UnassignedField.Global
 
-using System;
-
-namespace KioskBrowser.Data;
+namespace KioskBrowser.Core.Data;
 
 [Serializable]
 public class Settings

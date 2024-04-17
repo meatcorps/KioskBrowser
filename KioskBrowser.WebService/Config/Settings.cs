@@ -8,4 +8,7 @@ public class Settings
     public string[]? StartArguments;
     public string? PictureFileWatchLocation;
     public string? PictureUrlLocation;
+    public string? ExternalAdminCode;
+    public string? ExternalCode;
+    public string? ExternalUrl;
 }

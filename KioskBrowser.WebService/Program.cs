@@ -5,20 +5,19 @@ using KioskBrowser.DataService;
 using KioskBrowser.DataService.Services;
 using KioskBrowser.DataService.Utilities;
 using KioskBrowser.WebService.Bind;
-using KioskBrowser.WebService.Controllers;
 using KioskBrowser.WebService.Hubs;
-using Microsoft.AspNetCore.Builder;
+using KioskBrowser.WebService.Services;
 using Microsoft.Extensions.FileProviders;
 using Settings = KioskBrowser.WebService.Config.Settings;
 
-var settings = SettingsLoader<Settings>.ReadConfig(new FileInfo(args[0]));
+var settings = SettingsLoader<Settings>.ReadConfig(new FileInfo(FileUtilities.GetExecutingDirectory("settings.json")));
 if (settings is null)
 {
     Console.WriteLine("Something wrong with the config");
     Environment.Exit(-1);
 }
     
-var builder = WebApplication.CreateBuilder(settings!.StartArguments);
+var builder = WebApplication.CreateBuilder(settings!.StartArguments!);
 
 // Add services to the container.
 
@@ -52,6 +51,11 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
     builder.RegisterType<ProductBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<StorageBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<PhotoBindService>().AsSelf().SingleInstance().AutoActivate();
+    builder.RegisterType<MessagePictureImporter>().AsSelf().SingleInstance().AutoActivate()
+        .WithParameter("code", settings.ExternalCode!)
+        .WithParameter("adminCode", settings.ExternalAdminCode!)
+        .WithParameter("url", settings.ExternalUrl!)
+        .OnActivated(i => Task.Run(async () => await i.Instance.Start()));
 });
 var app = builder.Build();
 

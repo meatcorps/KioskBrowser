@@ -1,0 +1,20 @@
+button {
+  width: 100%;
+  max-width: 500px;
+  height: 35vh;
+  max-height: 400px;
+  opacity: 0.7;
+  margin-top: 1em;
+  font-size: 2rem;
+}
+mat-icon {
+
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+mat-toolbar {
+  background: rgba(0,0,0,0.5);
+  text-align: center;
+}

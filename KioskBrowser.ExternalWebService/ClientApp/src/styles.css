@@ -1,0 +1,77 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+html, body {
+  background: #333333;
+  margin: 0;
+  height: 100%;
+  color: white;
+  background: url("assets/bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.code-login {
+  text-align: center;
+}
+
+.code-login mat-form-field {
+  margin-top: calc(50% - 110px);
+  width: 300px;
+  font-size: 2rem;
+}
+
+.code-login button {
+  width: 300px;
+  font-size: 2rem;
+  height: 3rem;
+}
+
+.code-login p {
+  width: 300px;
+  margin-left: calc(50% - 150px);
+  margin-bottom: 0;
+  color: gray;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.align-right {
+  text-align: right;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: right;
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+  padding: 10px;
+}
+
+.container {
+  max-width: 500px !important;
+}
+
+
+.loading-body {
+    text-align: center;
+    padding-top: calc(50vh - 200px);
+}

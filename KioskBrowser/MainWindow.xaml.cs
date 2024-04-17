@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Windows;
 using CefSharp;
 using CefSharp.Wpf;
+using KioskBrowser.Core.Data;
 using KioskBrowser.Data;
 
 namespace KioskBrowser;

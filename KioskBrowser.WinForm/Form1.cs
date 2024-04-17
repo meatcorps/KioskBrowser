@@ -1,6 +1,7 @@
 using System.Reactive.Linq;
 using System.Reflection;
 using CefSharp;
+using KioskBrowser.Core.Data;
 using KioskBrowser.Data;
 
 namespace KioskBrowser.WinForm;
