@@ -11,7 +11,7 @@ document.body.insertAdjacentHTML("afterend",
     '       <span class="next"><span class="info">Next:</span> <span class="content">Lorems!</span></span>' +
     '   </div>' +
     '</div>' + 
-    '<iframe src="http://localhost:4200/messageframe/" allowtransparency="true" style="position: fixed;right: 0;bottom: 0;width: 50vw;height: 100vh;z-index: 2000;"></iframe>' +
+    '<iframe src="http://localhost:5000/app/messageframe/" allowtransparency="true" style="position: fixed;right: 0;bottom: 0;width: 50vw;height: 100vh;z-index: 2000;"></iframe>' +
     '<!--<iframe src="http://localhost:5000/app/dartscore/" allowtransparency="true" style="position: fixed;right: 0;bottom: 0;width: 50vw;height: 120px;z-index: 2000;"></iframe>-->');
 
 var currentGarageIndexItem = 0;
