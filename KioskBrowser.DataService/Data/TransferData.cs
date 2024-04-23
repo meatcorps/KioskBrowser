@@ -13,6 +13,7 @@ public class TransferData : IDisposable, IAsyncDisposable
     public DateTime ChangeDate { get; set; }
     public string MetaData { get; set; }
     public string Hash { get; set; } = "";
+    public string Type { get; set; }
 
     public byte[] GetBytes()
     {

@@ -33,6 +33,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(autoFacBuilder =>
     autoFacBuilder.RegisterType<TransferService>().SingleInstance().AsSelf()
         .WithParameter("chunkSize", settings!.ChunkSize!);
     autoFacBuilder.RegisterType<SaveIncomingImagesService>().SingleInstance().AsSelf().AutoActivate();
+    autoFacBuilder.RegisterType<SaveIncomingVideosService>().SingleInstance().AsSelf().AutoActivate();
     autoFacBuilder.RegisterType<MessageService>().SingleInstance().AsSelf();
     autoFacBuilder.RegisterType<VerifyService>().SingleInstance().AsSelf();
     autoFacBuilder.RegisterType<PushService>().SingleInstance().AsSelf()

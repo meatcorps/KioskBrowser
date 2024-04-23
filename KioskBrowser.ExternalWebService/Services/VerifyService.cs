@@ -62,9 +62,16 @@ public class VerifyService
                 Message = getAllContent[1]
             };
         }
-        
+
+        var extension = "jpg";
+
+        var binaryFile = result.Directory!.GetFiles(result.Name.Replace(".txt", ".*")).FirstOrDefault(x => !x.Name.Contains(".txt"));
+        if (binaryFile is not null)
+            extension = binaryFile.Extension;
+            
         var message = File.ReadAllText(result.FullName);
-        var data = Convert.ToBase64String(File.ReadAllBytes(result.FullName.Replace(".txt", ".jpg")));
+        var location = result.FullName.Replace(".txt", extension);
+        var data = Convert.ToBase64String(File.ReadAllBytes(location));
         return new MessagePicture
         {
             Id = result.Name.Replace(".txt", ""),
@@ -72,6 +79,7 @@ public class VerifyService
             Type = type,
             Who = "",
             Message = message,
+            Extension = location.Substring(location.Length - 3),
         };
     }
 
@@ -91,7 +99,12 @@ public class VerifyService
         
         File.Move(original + ".txt", directory + ".txt", true);
         if (type == "pho")
-            File.Move(original + ".jpg", directory + ".jpg", true);
+        {
+            if (File.Exists(original + ".jpg"))
+                File.Move(original + ".jpg", directory + ".jpg", true);
+            if (File.Exists(original + ".gif"))
+                File.Move(original + ".gif", directory + ".gif", true);
+        }
 
         return true;
     }

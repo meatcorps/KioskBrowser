@@ -34,7 +34,6 @@ class TransferHubService {
       })
       .catch(err => {
         console.log('Error while starting connection: ' + err);
-
       });
   }
 
@@ -46,8 +45,8 @@ class TransferHubService {
     return await this.hubConnection.invoke("TotalChunks", id);
   }
 
-  public async transferRequest(code: string, name: string, size: number, metaData: string): Promise<string> {
-    return await this.hubConnection.invoke("TransferRequest", code, name, size, metaData);
+  public async transferRequest(code: string, name: string, size: number, metaData: string, type: string): Promise<string> {
+    return await this.hubConnection.invoke("TransferRequest", code, name, size, metaData, type);
   }
 
   public async sendData(id: string, chunkNr: number, data: string): Promise<number> {
@@ -77,6 +76,7 @@ interface IVerifyObject {
   Who: string;
   Message: string;
   Data: string;
+  Extension: string;
 }
 
 export { TransferHubService, INextToVerifyObject, IVerifyObject };

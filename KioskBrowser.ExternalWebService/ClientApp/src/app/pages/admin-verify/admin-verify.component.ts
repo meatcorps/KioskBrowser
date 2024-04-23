@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {INextToVerifyObject, TransferHubService} from "../../hubs/transfer-hub.service";
+import {INextToVerifyObject, IVerifyObject, TransferHubService} from "../../hubs/transfer-hub.service";
 import {DataHubService} from "../../hubs/data-hub.service";
 import {CodeService} from "../../services/code.service";
 import {filter, interval, Observable, Subscription} from "rxjs";
@@ -41,6 +41,10 @@ export class AdminVerifyComponent implements OnInit, OnDestroy {
 
   public async loadNext(): Promise<void> {
     this.current = await this.transferHub.getNextVerifyObject(this.code.currentCode(), this.admin, this.mode);
+  }
+
+  public getMime(obj: IVerifyObject): string {
+    return obj.Extension == 'gif' ? 'image/gif' : 'image/jpeg';
   }
 
   public async ngOnInit(): Promise<void> {

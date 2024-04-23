@@ -22,6 +22,7 @@ var builder = WebApplication.CreateBuilder(settings!.StartArguments!);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
@@ -59,6 +60,12 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 });
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.UseStaticFiles(new StaticFileOptions()
 {
     FileProvider = new PhysicalFileProvider(
@@ -73,6 +80,10 @@ app.MapFallbackToFile("index.html");
 app.MapHub<PingHub>("/ping");
 app.MapHub<DataHub>("/data");
 
-app.MapControllers();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action=Index}/{id?}");
+
+
 
 app.Run();

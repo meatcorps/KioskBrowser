@@ -57,7 +57,7 @@ export class SendPhotosComponent implements AfterViewInit  {
     const files = this.uploader.nativeElement.files!;
     for (let i = 0; i < files.length; i++) {
       let data = await this.toBase64(files[i]);
-      this.toUpload.push(new ToUpload(files[i].name, data, ""));
+      this.toUpload.push(new ToUpload(files[i].name, data, "", data.indexOf("video/") > -1));
     }
   }
 
@@ -65,12 +65,13 @@ export class SendPhotosComponent implements AfterViewInit  {
     this.uploading = true;
     for (let i = 0; i < this.toUpload.length; i++) {
       let data = this.toUpload[i].base64;
+      const type = data.split(";base64")[0].replace("data:", "");
       data = data.split(",")[1];
       this.currentImage = this.toUpload[i].base64;
-      this.statusText = "Picture " + (i + 1) + " of " + this.toUpload.length;
+      this.statusText = "Picture / Video " + (i + 1) + " of " + this.toUpload.length;
       this.uploadPercentage = 0;
       const chunkSize = await this.transferHub.chunkSize();
-      const id = await this.transferHub.transferRequest(this.codeService.currentCode(), this.toUpload[i].name, data.length, this.toUpload[i].metadata);
+      const id = await this.transferHub.transferRequest(this.codeService.currentCode(), this.toUpload[i].name, data.length, this.toUpload[i].metadata, type);
       const chunks = this.chunkSubString(data, chunkSize);
       console.log(chunks[5]);
       for (let j = 0; j < chunks.length; j++) {
@@ -88,12 +89,12 @@ export class SendPhotosComponent implements AfterViewInit  {
           Math.floor(((j / chunks.length) * 1000) / 10) + "%");
       }
       this.uploadPercentage = 100;
-      this.snackBar.open("Photo " + (i + 1) + " send", '', {
+      this.snackBar.open("Photo / video " + (i + 1) + " send", '', {
         duration: 2000
       });
     }
 
-    this.snackBar.open("All photo(s) are send! You will be redirected after 5 seconds.", '', {
+    this.snackBar.open("All photo(s) or video(s) are send! You will be redirected after 5 seconds.", '', {
       duration: 5000
     });
 
@@ -127,6 +128,6 @@ export class SendPhotosComponent implements AfterViewInit  {
 }
 
 class ToUpload {
-  constructor(public name: string, public base64: string, public metadata: string) {
+  constructor(public name: string, public base64: string, public metadata: string, public video: boolean) {
   }
 }

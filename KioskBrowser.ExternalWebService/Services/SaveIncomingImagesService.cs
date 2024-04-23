@@ -20,21 +20,32 @@ public sealed class SaveIncomingImagesService: IDisposable
 
     public SaveIncomingImagesService(TransferService transferService)
     {
-        transferService.NewCompletedTransfer.Where(x => x.Name.Contains(".jpg") || x.Name.Contains(".jpeg")).Subscribe(IncomingImage, _cancellationDisposable.Token);
+        transferService.NewCompletedTransfer.Where(x => x.Type.Contains("image/")).Subscribe(IncomingImage, _cancellationDisposable.Token);
     }
 
     private void IncomingImage(TransferData transferData)
     {
-        var dataStream = transferData.GetBytes();
-
-        using var temp = SKBitmap.Decode(dataStream);
-        using var bitmap = ResizeImage(temp);
-
-        using var data = bitmap.Encode(SKEncodedImageFormat.Jpeg, 75);
-        
         FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory("toVerify"));
         FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho")));
 
+        var dataStream = transferData.GetBytes();
+        
+        // No resizing supported for gif :)
+        if (transferData.Type.Contains("gif"))
+        {
+            var sha1HashGif = FileUtilities.GetSha1Hash(dataStream);
+            File.WriteAllBytes(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho", sha1HashGif + ".gif")), dataStream);
+            File.WriteAllText(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho", sha1HashGif + ".txt")), transferData.MetaData);
+            return;
+        }
+        
+        using var temp = SKBitmap.Decode(dataStream);
+        using var bitmap = ResizeImage(temp);
+
+        var format = SKEncodedImageFormat.Jpeg;
+        
+        using var data = bitmap.Encode(SKEncodedImageFormat.Jpeg, 75);
+        
         var sha1Hash = FileUtilities.GetSha1Hash(data.ToArray());
 
         transferData.Hash = sha1Hash;

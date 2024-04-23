@@ -77,7 +77,7 @@ public class TransferController : ControllerBase
             return "NOPE";
         if (!_codeService.IsAdmin(adminCode))
             return "NOPE";
-        if (type is not ("pho" or "mess"))
+        if (type is not ("pho" or "mess" or "video"))
             return "NOPE";
 
         var message = _verifyService.GetAllAcceptedMessages(code, type);
@@ -93,7 +93,7 @@ public class TransferController : ControllerBase
             return "NOPE";
         if (!_codeService.IsAdmin(adminCode))
             return "NOPE";
-        if (type is not ("pho" or "mess"))
+        if (type is not ("pho" or "mess" or "video"))
             return "NOPE";
 
         _verifyService.MarkAsDownLoaded(code, type, hash);

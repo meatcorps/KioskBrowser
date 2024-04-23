@@ -37,6 +37,7 @@ public class SupplyController : ControllerBase
         return _dataService.GroupData.All();
     }
 
+    [HttpGet]
     [Route("Supply/Products/Add/{id?}")]
     public ProductData? Add(string id)
     {
@@ -55,6 +56,7 @@ public class SupplyController : ControllerBase
         return product;
     }
 
+    [HttpGet]
     [Route("Supply/Products/Subtract/{id?}")]
     public ProductData? Subtract(string id)
     {

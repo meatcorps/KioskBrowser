@@ -10,9 +10,9 @@ namespace KioskBrowser.WebService.Services;
 
 public class MessagePictureImporter: IDisposable
 {
-    private readonly string _code;
+    public string Code { get; }
     private readonly string _adminCode;
-    private readonly string _url;
+    public string Url { get; }
     private CancellationDisposable _cancellationDisposable = new();
     private HttpClient _httpClient = new ();
     private DirectoryInfo _downloadedFilesDirectory;
@@ -25,9 +25,9 @@ public class MessagePictureImporter: IDisposable
     
     public MessagePictureImporter(string code, string adminCode, string url)
     {
-        _code = code;
+        Code = code;
         _adminCode = adminCode;
-        _url = url;
+        Url = url;
         _downloadedFilesDirectory = new DirectoryInfo(FileUtilities.GetExecutingDirectory("partymessages"));
     }
 
@@ -45,8 +45,9 @@ public class MessagePictureImporter: IDisposable
         if (string.IsNullOrEmpty(target))
             return new MessagePicture();
 
-        return JsonConvert.DeserializeObject<MessagePicture>(_downloadedFilesDirectory.FullName +
-                                                             Path.DirectorySeparatorChar + target)!;
+        return JsonConvert.DeserializeObject<MessagePicture>(
+            File.ReadAllText(
+                _downloadedFilesDirectory.FullName + Path.DirectorySeparatorChar + target))!;
     }
 
     public MessagePicture NextMessage()
@@ -63,8 +64,9 @@ public class MessagePictureImporter: IDisposable
         if (string.IsNullOrEmpty(target))
             return new MessagePicture();
 
-        return JsonConvert.DeserializeObject<MessagePicture>(_downloadedFilesDirectory.FullName +
-                                                             Path.DirectorySeparatorChar + target)!;
+        return JsonConvert.DeserializeObject<MessagePicture>(
+            File.ReadAllText(
+                _downloadedFilesDirectory.FullName + Path.DirectorySeparatorChar + target))!;
     }
 
     public async Task Start()
@@ -101,14 +103,15 @@ public class MessagePictureImporter: IDisposable
         _isImporting = true;
         await DoImportOfSpecificType("pho", _quePhotosPrio);
         await DoImportOfSpecificType("mess", _queMessagesPrio);
+        await DoImportOfSpecificType("video", null);
         _isImporting = false;
     }
 
-    private async Task DoImportOfSpecificType(string type, Queue<string> target)
+    private async Task DoImportOfSpecificType(string type, Queue<string>? target)
     {
         while (true)
         {
-            var url = $"{_url}/transfer/download/{type}/{_adminCode}/{_code}";
+            var url = $"{Url}/transfer/download/{type}/{_adminCode}/{Code}";
             // Only the first 10 fill show up here.
             var result = await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get,
                 url));
@@ -117,18 +120,31 @@ public class MessagePictureImporter: IDisposable
                 var items = await result.Content.ReadFromJsonAsync<MessagePicture[]>();
                 foreach (var item in items)
                 {
-                    await File.WriteAllTextAsync(
-                        _downloadedFilesDirectory.FullName + Path.DirectorySeparatorChar + type.ToUpper() + item.Id,
-                        JsonConvert.SerializeObject(item));
+                    if (type == "video")
+                    {
+                        await File.WriteAllBytesAsync(
+                            _downloadedFilesDirectory.FullName + Path.DirectorySeparatorChar + type.ToUpper() +
+                            item.Id + "." + item.Extension,
+                            Convert.FromBase64String(item.Data));
+
+                        await File.WriteAllTextAsync(
+                            _downloadedFilesDirectory.FullName + Path.DirectorySeparatorChar + type.ToUpper() +
+                            item.Id + ".txt",
+                            item.Message);
+                    }
+                    else     
+                        await File.WriteAllTextAsync(
+                            _downloadedFilesDirectory.FullName + Path.DirectorySeparatorChar + type.ToUpper() + item.Id,
+                            JsonConvert.SerializeObject(item));
 
                     // We're going to accept the message, so it will not show up next time. 
                     var resultack = await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get,
-                        $"{_url}/transfer/ack/{type}/{_adminCode}/{_code}/{item.Id}"));
+                        $"{Url}/transfer/ack/{type}/{_adminCode}/{Code}/{item.Id}"));
                     
                     if (!resultack.IsSuccessStatusCode)
                         Console.WriteLine($"Something is going wrong with ACK message {item.Id} ");
                     
-                    target.Enqueue(type.ToUpper() + item.Id);
+                    target?.Enqueue(type.ToUpper() + item.Id);
                 }
                 
                 Console.WriteLine($"Done {type}! " + items.Length);

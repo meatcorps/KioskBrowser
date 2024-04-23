@@ -14,12 +14,12 @@ public class TransferHub : Hub
         _codeService = codeService;
     }
     
-    public string TransferRequest(string code, string name, int filesize, string metaData)
+    public string TransferRequest(string code, string name, int filesize, string metaData, string type)
     {
         if (!_codeService.IsValidCode(code))
             return "INVALID";
         
-        return _transferService.NewBase64Transfer(code, name, filesize, metaData).ToString();
+        return _transferService.NewBase64Transfer(code, name, filesize, metaData, type).ToString();
     }
     
     public int ChunkSize()

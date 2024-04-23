@@ -1,13 +1,22 @@
-<input #photoInput hidden="true" multiple="multiple" type="file" onclick="this.value=null" (change)="uploadPhotoInputChange($event)" accept=".jpg,.jpeg"/>
+<input #photoInput hidden="true" multiple="multiple" type="file" onclick="this.value=null" (change)="uploadPhotoInputChange($event)"
+       accept="video/mp4,video/x-m4v,video/*,image/jpeg,image/png,image/gif"/>
 <div *ngIf="toUpload.length > 0 && !uploading" class="upload-list">
-  <p><em><br>We’ll check the picture{{toUpload.length > 1 ? 's' : ''}} and message{{toUpload.length > 1 ? 's' : ''}} before showing it.</em></p>
+  <p><em><br>We’ll check the picture{{toUpload.length > 1 ? 's' : ''}} and message{{toUpload.length > 1 ? 's' : ''}} before showing it. Video's won't be showed but will be collected for later use.</em></p>
 
   <mat-card class="toUpload" *ngFor="let uploadItem of toUpload; index as i">
-    <mat-card-header>
-      <mat-card-title>Picture #{{i + 1}}</mat-card-title>
+    <mat-card-header *ngIf="!uploadItem.video">
+      <mat-card-title >Picture #{{i + 1}}</mat-card-title>
       <mat-card-subtitle>Do you want to include a message with this picture?</mat-card-subtitle>
     </mat-card-header>
-    <img [src]="uploadItem.base64" alt="">
+    <mat-card-header *ngIf="uploadItem.video">
+      <mat-card-title >Video #{{i + 1}}</mat-card-title>
+      <mat-card-subtitle>Do you want to include a message with this video?<br><em><strong>Notice:</strong> We will only collect the video's, so it will not be automatically shown!</em></mat-card-subtitle>
+    </mat-card-header>
+    <img *ngIf="!uploadItem.video" [src]="uploadItem.base64" alt="">
+    <video controls *ngIf="uploadItem.video">
+      <source [src]="uploadItem.base64">
+    </video>
+
     <mat-card-content>
       <mat-form-field class="example-full-width">
         <mat-label>Message (Optional)</mat-label>
@@ -34,7 +43,7 @@
     [innerStrokeColor]="'#666666'"
     [animation]="false"
   ></circle-progress><br>
-  <img [src]="currentImage" width="100">
+  <img *ngIf="currentImage.indexOf('image') > -1" [src]="currentImage" width="100">
 </div>
 <div class="footer" *ngIf="!uploading">
   <button mat-flat-button color="secondary" routerLink="/home"><mat-icon fontIcon="cancel"></mat-icon> Cancel</button>

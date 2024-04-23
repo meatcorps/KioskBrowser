@@ -15,7 +15,9 @@
         <PackageReference Include="MedallionRandom" Version="1.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.5" />
+        <PackageReference Include="QRCoder" Version="1.4.3" />
         <PackageReference Include="SignalR.Extras.Autofac" Version="1.2.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>

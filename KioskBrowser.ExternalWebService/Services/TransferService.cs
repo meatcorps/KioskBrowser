@@ -36,7 +36,7 @@ public sealed class TransferService: IDisposable
         }
     }
 
-    public Guid NewBase64Transfer(string code, string name, int transferSize, string metaData)
+    public Guid NewBase64Transfer(string code, string name, int transferSize, string metaData, string type)
     {
         var guid = Guid.NewGuid();
         var totalChunks = (int) Math.Ceiling((double) transferSize / ChunkSize);
@@ -48,6 +48,7 @@ public sealed class TransferService: IDisposable
                 Id = guid,
                 Name = name,
                 Code = code,
+                Type = type,
                 TotalChunks = totalChunks,
                 ChangeDate = DateTime.Now,
                 TransferSize = transferSize,

@@ -7,4 +7,5 @@ public class MessagePicture
     public string Who { get; set; }
     public string Message { get; set; }
     public string Data { get; set; }
+    public string Extension { get; set; }
 }
