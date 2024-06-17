@@ -3,7 +3,7 @@
     <p>Connecting...<br><br></p>
     <img src="assets/loading.gif" style="width: 100%; max-width: 300px;">
   </h1>
-  <div class="container" *ngIf="codeService.CodeValid() && dataHub.connected">
+  <div class="container" *ngIf="codeService.CodeValid()" [class.hidden]="!dataHub.connected">
     <router-outlet></router-outlet>
   </div>
   <div class="container code-login" *ngIf="!codeService.CodeValid() && dataHub.connected">
@@ -16,4 +16,5 @@
     <button mat-flat-button color="primary" (click)="enterCode(userCodeInput)">Enter</button>
     <p><br>{{errorMessage}}</p>
   </div>
+  <small>Version 1.1</small>
 </body>
