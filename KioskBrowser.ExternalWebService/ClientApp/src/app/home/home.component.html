@@ -1,4 +1,4 @@
-<mat-toolbar (click)="goToAdmin()">What do you like to do?</mat-toolbar>
+<mat-toolbar (click)="goToAdmin()">Welcome at party {{codeService.currentCode()}}!</mat-toolbar>
 
 <button mat-flat-button color="primary" routerLink="/send-message">
   <div><mat-icon fontIcon="mail"></mat-icon></div>
@@ -8,3 +8,8 @@
   <div><mat-icon fontIcon="image"></mat-icon></div>
   Send photo(s) & <br>video(s)
 </button>
+<button mat-flat-button color="secondary" (click)="codeService.setCode('');" style="height: 2em;">
+  Switch welcome code
+</button>
+
+<div class="align-content-center"><small>V1.1.1</small></div>

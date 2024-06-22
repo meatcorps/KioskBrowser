@@ -17,6 +17,8 @@ public sealed class SaveIncomingVideosService : IDisposable
 
     private void IncomingVideo(TransferData transferData)
     {
+        FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory("original"));
+        FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory(Path.Combine("original", transferData.Code)));
         FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory("accepted"));
         FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory(Path.Combine("accepted", transferData.Code + "_video")));
         
@@ -25,6 +27,8 @@ public sealed class SaveIncomingVideosService : IDisposable
         var sha1Hash = FileUtilities.GetSha1Hash(dataStream);
         File.WriteAllBytes(FileUtilities.GetExecutingDirectory(Path.Combine("accepted", transferData.Code + "_video", sha1Hash + "." + transferData.Type.Split("/")[1])), dataStream);
         File.WriteAllText(FileUtilities.GetExecutingDirectory(Path.Combine("accepted", transferData.Code + "_video", sha1Hash + ".txt")), transferData.MetaData);
+        
+        File.WriteAllBytes(FileUtilities.GetExecutingDirectory(Path.Combine("original", transferData.Code, DateTime.Now.ToFileTimeUtc() + "_" + transferData.Name)), dataStream);
     }
 
     public void Dispose()

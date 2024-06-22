@@ -1,4 +1,4 @@
-<body>
+<body [className]="codeService.currentCode()">
   <h1 *ngIf="!dataHub.connected" class="loading-body">
     <p>Connecting...<br><br></p>
     <img src="assets/loading.gif" style="width: 100%; max-width: 300px;">
@@ -16,5 +16,4 @@
     <button mat-flat-button color="primary" (click)="enterCode(userCodeInput)">Enter</button>
     <p><br>{{errorMessage}}</p>
   </div>
-  <small>Version 1.1</small>
 </body>
