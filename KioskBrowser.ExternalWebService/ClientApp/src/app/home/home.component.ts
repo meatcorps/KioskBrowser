@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
+import {CodeService} from "../services/code.service";
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import {Router} from "@angular/router";
 export class HomeComponent {
   private counter: number = 0;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, public codeService: CodeService) {
   }
 
   public async goToAdmin(): Promise<void> {

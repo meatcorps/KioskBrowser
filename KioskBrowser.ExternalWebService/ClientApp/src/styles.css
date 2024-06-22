@@ -81,3 +81,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     text-align: center;
     padding-top: calc(50vh - 200px);
 }
+
+
+body.DD24 .mat-primary {
+  --mdc-filled-button-container-color: #456337 !important;
+
+  --mdc-filled-button-label-text-color: white;
+  --mat-filled-button-state-layer-color: white;
+  --mat-filled-button-ripple-color: rgba(255, 255, 255, 0.1);
+}
+
+
+body.DD24 {
+  background: url("assets/bgdd24.jpg") no-repeat;
+  background-size: cover;
+}

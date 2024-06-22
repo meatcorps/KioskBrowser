@@ -102,12 +102,12 @@ ytmusic-carousel#ytmusic-carousel {
     
     img.garagelogo {position: fixed;z-index: 2000;left: calc(50vw + 30px);top: 30px;width: 300px;}
 
-    .garageinformation {position: fixed;width: 50vw;left: 50vw;top: 80px;z-index: 1900;color: white;font-size: 2.5em;padding: 30px 30px 30px calc(330px);text-shadow: 1px 1px 2px black;background: rgb(255,0,200);
-    background: linear-gradient(90deg, rgba(255,0,200,0.3) 0%, rgba(255,212,200,0) 50%);}
+    .garageinformation {position: fixed;width: 50vw;left: 50vw;top: 80px;z-index: 1900;color: white;font-size: 2.5em;padding: 30px 30px 30px calc(330px);text-shadow: 1px 1px 2px black;background: rgb(98,169,44);
+    background: linear-gradient(90deg, rgba(98,169,44,0.3) 0%, rgba(98,169,44,0) 50%);}
     
     .garageinformation span.now, .garageinformation span.next  {display: block;}
     
-    .garageinformation span.next {color: #e400ff;}
+    .garageinformation span.next {color: #62a92c;}
     
     .garageinformation span > .info {color: rgba(255,255,255,0.5); font-size: 0.8em;}
     `;

@@ -25,36 +25,58 @@ public sealed class SaveIncomingImagesService: IDisposable
 
     private void IncomingImage(TransferData transferData)
     {
-        FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory("toVerify"));
-        FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho")));
-
-        var dataStream = transferData.GetBytes();
-        
-        // No resizing supported for gif :)
-        if (transferData.Type.Contains("gif"))
+        try
         {
-            var sha1HashGif = FileUtilities.GetSha1Hash(dataStream);
-            File.WriteAllBytes(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho", sha1HashGif + ".gif")), dataStream);
-            File.WriteAllText(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho", sha1HashGif + ".txt")), transferData.MetaData);
-            return;
+            FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory("original"));
+            FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory(Path.Combine("original", transferData.Code)));
+            FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory("toVerify"));
+            FileUtilities.MakeDirectory(
+                FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho")));
+
+            var dataStream = transferData.GetBytes();
+
+            // No resizing supported for gif :)
+            if (transferData.Type.Contains("gif"))
+            {
+                var sha1HashGif = FileUtilities.GetSha1Hash(dataStream);
+                File.WriteAllBytes(
+                    FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho",
+                        sha1HashGif + ".gif")), dataStream);
+                File.WriteAllText(
+                    FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho",
+                        sha1HashGif + ".txt")), transferData.MetaData);
+                
+                File.WriteAllBytes(FileUtilities.GetExecutingDirectory(Path.Combine("original", transferData.Code, DateTime.Now.ToFileTimeUtc() + "_" + transferData.Name)), dataStream);
+                return;
+            }
+
+            using var temp = SKBitmap.Decode(dataStream);
+            using var bitmap = ResizeImage(temp);
+
+            var format = SKEncodedImageFormat.Jpeg;
+
+            using var data = bitmap.Encode(SKEncodedImageFormat.Jpeg, 75);
+
+            var sha1Hash = FileUtilities.GetSha1Hash(data.ToArray());
+
+            transferData.Hash = sha1Hash;
+            transferData.Chunks.Dispose();
+
+            using var fileWriteStream =
+                File.Create(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho",
+                    sha1Hash + ".jpg")));
+            data.SaveTo(fileWriteStream);
+            File.WriteAllText(
+                FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho",
+                    sha1Hash + ".txt")), transferData.MetaData);
+            _readyToVerifySubject.OnNext(transferData);
+            
+            File.WriteAllBytes(FileUtilities.GetExecutingDirectory(Path.Combine("original", transferData.Code, DateTime.Now.ToFileTimeUtc() + "_" + transferData.Name)), dataStream);
         }
-        
-        using var temp = SKBitmap.Decode(dataStream);
-        using var bitmap = ResizeImage(temp);
-
-        var format = SKEncodedImageFormat.Jpeg;
-        
-        using var data = bitmap.Encode(SKEncodedImageFormat.Jpeg, 75);
-        
-        var sha1Hash = FileUtilities.GetSha1Hash(data.ToArray());
-
-        transferData.Hash = sha1Hash;
-        transferData.Chunks.Dispose();
-        
-        using var fileWriteStream = File.Create(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho", sha1Hash + ".jpg")));
-        data.SaveTo(fileWriteStream);
-        File.WriteAllText(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", transferData.Code + "_pho", sha1Hash + ".txt")), transferData.MetaData);
-        _readyToVerifySubject.OnNext(transferData);
+        catch (Exception ex)
+        {
+            Console.WriteLine("Image resizing something went wrong" + ex.ToString());
+        }
     }
     
     private static SKBitmap ResizeImage(SKBitmap bitmap)

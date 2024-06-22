@@ -8,7 +8,7 @@
   "Height": 1080,
   "WindowLess": true,
   "AlwaysOnTop": false,
-  "ShowDevTools": false,
+  "ShowDevTools": true,
   "FilesToInject": [
     "inject.js",
     "logo.js"
