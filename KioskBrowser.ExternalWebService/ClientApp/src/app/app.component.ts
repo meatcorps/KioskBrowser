@@ -25,7 +25,7 @@ export class AppComponent implements OnInit{
   }
 
   public async enterCode(userCodeInput: string) {
-    await this.codeService.setCode(userCodeInput);
+    await this.codeService.setCode(userCodeInput.toUpperCase());
     this.errorMessage = "Invalid code! Try again";
     this.userCodeInput = "";
     setTimeout(() => this.errorMessage = "", 5000);
