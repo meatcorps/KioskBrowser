@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Text;
 using KioskBrowser.DataService.Data;
 using KioskBrowser.DataService.Utilities;
 
@@ -17,7 +18,7 @@ public class MessageService
         FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory("toVerify"));
         FileUtilities.MakeDirectory(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", code + "_mess")));
 
-        var hash = FileUtilities.GetSha1Hash((name + message).ToArray().Select(Convert.ToByte).ToArray());
+        var hash = FileUtilities.GetSha1Hash(Encoding.Unicode.GetBytes((name + message)));
         
         File.WriteAllText(FileUtilities.GetExecutingDirectory(Path.Combine("toVerify", code + "_mess", hash + ".txt")), name + "|||" + message);
         

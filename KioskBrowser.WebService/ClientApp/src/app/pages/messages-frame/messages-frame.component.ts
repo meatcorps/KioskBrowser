@@ -41,12 +41,18 @@ export class MessagesFrameComponent implements OnInit {
 
   private async update(): Promise<void> {
     await this.animateDown();
-    const message: any = await this.http.get(environment.url + '/nextmessage').toPromise();
-    this.message = message;
-    console.log(this.message);
 
     const photo: any = await this.http.get(environment.url + '/nextphoto').toPromise();
     this.picture = photo;
+
+    if (this.picture.message && this.picture.message.length > 0) {
+      this.picture.who = "Photo message";
+      this.message = this.picture;
+    } else {
+      const message: any = await this.http.get(environment.url + '/nextmessage').toPromise();
+      this.message = message;
+    }
+
     await this.animateUp();
   }
 

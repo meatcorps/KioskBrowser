@@ -40,7 +40,11 @@ export class AdminVerifyComponent implements OnInit, OnDestroy {
   }
 
   public async loadNext(): Promise<void> {
-    this.current = await this.transferHub.getNextVerifyObject(this.code.currentCode(), this.admin, this.mode);
+    try {
+      this.current = await this.transferHub.getNextVerifyObject(this.code.currentCode(), this.admin, this.mode);
+    } catch (e) {
+      this.current = {total: 0, object: {Extension: "", Data: "", Id: "", Who: "", Message: "", Type: ""}};
+    }
   }
 
   public getMime(obj: IVerifyObject): string {
