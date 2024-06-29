@@ -8,18 +8,34 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
         <ApplicationIcon>logo.ico</ApplicationIcon>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Platforms>x86;x64;AnyCPU</Platforms>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <!--<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
       <Prefer32bit>true</Prefer32bit>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <Prefer32bit>true</Prefer32bit>
-    </PropertyGroup>
+    </PropertyGroup>-->
 
+    <PropertyGroup>
+        <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">win-x64</RuntimeIdentifier>
+        <!-- Use $(NETCoreSdkRuntimeIdentifier) in most cases this will be win-x86 -->
+        <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">$(NETCoreSdkRuntimeIdentifier)</RuntimeIdentifier>
+        <!-- .Net 7.0 introduces a new UseCurrentRuntimeIdentifier property-->
+        <UseCurrentRuntimeIdentifier Condition="'$(UseCurrentRuntimeIdentifier)' == ''">true</UseCurrentRuntimeIdentifier>
+
+        <!--
+        You should also set
+        SelfContained = false (otherwise the whole .Net Framework will be included in your bin folder
+        -->
+        <SelfContained Condition="'$(SelfContained)' == ''">false</SelfContained>
+    </PropertyGroup>
+    
     <ItemGroup>
-      <PackageReference Include="CefSharp.WinForms.NETCore" Version="115.3.110" />
+      <PackageReference Include="CefSharp.WinForms.NETCore" Version="126.2.70" />
       <PackageReference Include="System.Reactive" Version="5.0.0" />
     </ItemGroup>
 
@@ -42,4 +58,8 @@
       </None>
     </ItemGroup>
 
+    <Target Name="CefSharpAfterBuildDebug" AfterTargets="AfterBuild">
+        <CallTarget Targets="CefSharpAfterBuildDiagnostic" />
+    </Target>
+    
 </Project>

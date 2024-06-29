@@ -1,0 +1,1 @@
+KioskBrowser.WebView2.exe .\WindowProfiles\YoutubeMusic\settings.json

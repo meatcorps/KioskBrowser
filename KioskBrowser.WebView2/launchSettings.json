@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KioskBrowser.WebView2": {
+      "commandName": "Project",
+      "commandLineArgs": ".\\WindowProfiles\\YoutubeMusic\\settings.json"
+    }
+  }
+}
