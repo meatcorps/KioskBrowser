@@ -49,12 +49,24 @@ h1 {
   left: 0;
   top: 0;
   text-align: right;
+  white-space: nowrap;
+}
+
+.toolbar-group {
+  display: inline-block;
+  background: rgba(0,0,0,0.5);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  line-height: 50px;
 }
 
 .spacer {
   height: 50px;
 }
 
-mat-button-toggle-group {
-  margin-left: calc(100vw - 208px);
+.large {
+  color: greenyellow;
+  font-size: 2em;
+  vertical-align: middle;
 }

@@ -1,9 +1,21 @@
 <div class="fixed">
-  <mat-button-toggle-group name="fontStyle" [(ngModel)]="mode" aria-label="Font Style">
-    <mat-button-toggle value="+">Add</mat-button-toggle>
-    <mat-button-toggle value="-">Subtract</mat-button-toggle>
-    <mat-button-toggle value="x">Select</mat-button-toggle>
-  </mat-button-toggle-group>
+  <div class="toolbar-group">
+    <span>Next in line&nbsp; <span class="large">{{nextInLineNumber}}</span></span>&nbsp;
+    <button mat-flat-button (click)="PreviousInLine()">
+      Previous
+    </button>
+    &nbsp;
+    <button mat-flat-button (click)="NextInLine()">
+      Next
+    </button>
+  </div>
+  <div class="toolbar-group">
+    <mat-button-toggle-group name="fontStyle" [(ngModel)]="mode" aria-label="Font Style">
+      <mat-button-toggle value="+">Add</mat-button-toggle>
+      <mat-button-toggle value="-">Subtract</mat-button-toggle>
+      <mat-button-toggle value="x">Select</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
 </div>
 <div class="spacer"></div>
 <div class="group" *ngFor="let group of groups; let i = index">

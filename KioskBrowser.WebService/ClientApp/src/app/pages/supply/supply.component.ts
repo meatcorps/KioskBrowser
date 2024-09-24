@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IProductData} from "../../interfaces/IProductData";
 import {IGroupData} from "../../interfaces/IGroupData";
 import {DataHubService} from "../../hubs/data-hub.service";
+import {GlobalStorageService} from "../../services/global-storage.service";
 
 @Component({
   selector: 'app-supply',
@@ -15,8 +16,9 @@ export class SupplyComponent implements OnInit {
   public position: number = 0;
   public mode: string = "-";
   public currentProduct: IProductData = {id: '', group: '', sortIndex: 0, name: '', totalItems: 0};
+  public nextInLineNumber: number = 0;
 
-  constructor(public data: DataHubService) { }
+  constructor(public data: DataHubService, public globalStorage: GlobalStorageService) { }
 
   public ngOnInit(): void {
     this.data.connectionReady.subscribe(() => {
@@ -32,7 +34,28 @@ export class SupplyComponent implements OnInit {
       this.data.productDataChange.subscribe(x => this.setProductCollection(x));
       this.data.groupDataChange.subscribe(x => this.setGroupCollection(x));
     });
+
+    this.globalStorage.connectionReady.subscribe(() => {
+      this.globalStorage.changeReceived.subscribe(() => {
+        this.receiveNextInLine();
+      });
+
+      this.receiveNextInLine();
+    });
   }
+
+  private receiveNextInLine() {
+    const nextInLineNumber = parseInt(this.globalStorage.get("nextInLineNumber")) ?? 1;
+
+    if (isNaN(nextInLineNumber)) {
+      this.nextInLineNumber = 1;
+    } else {
+      this.nextInLineNumber = nextInLineNumber;
+    }
+
+    console.log(this.globalStorage.get("nextInLineNumber"));
+  }
+
 
   public setGroupCollection(groups: IGroupData[]) {
     this.groups = groups
@@ -83,6 +106,26 @@ export class SupplyComponent implements OnInit {
     }
     this.data.removeProduct(this.currentProduct).finally(() => alert('Done'));
     this.resetCurrentProduct();
+  }
+
+  public NextInLine() {
+    let nextInLineNumber = this.nextInLineNumber + 1;
+
+    if (nextInLineNumber > 100) {
+      nextInLineNumber = 1;
+    }
+
+    this.globalStorage.set("nextInLineNumber", nextInLineNumber.toString());
+  }
+
+  public PreviousInLine() {
+    let nextInLineNumber = this.nextInLineNumber - 1;
+
+    if (nextInLineNumber < 1) {
+      nextInLineNumber = 1;
+    }
+
+    this.globalStorage.set("nextInLineNumber", nextInLineNumber.toString());
   }
 
 }

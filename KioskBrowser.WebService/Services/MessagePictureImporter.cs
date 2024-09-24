@@ -30,7 +30,7 @@ public class MessagePictureImporter: IDisposable
         Url = url;
         _downloadedFilesDirectory = new DirectoryInfo(FileUtilities.GetExecutingDirectory("partymessages"));
     }
-
+    
     public MessagePicture NextPicture()
     {
         if (!_quePhotosPrio.TryDequeue(out var target))

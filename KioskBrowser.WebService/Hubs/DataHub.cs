@@ -15,8 +15,5 @@ public partial class DataHub: Hub
         DataService = dataService;
         PhotoBindService = photoBindService;
     }
-
-    
-    
     
 }

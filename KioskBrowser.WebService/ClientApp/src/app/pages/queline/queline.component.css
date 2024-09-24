@@ -1,0 +1,42 @@
+.background {
+  background: #111111;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/assets/ziekenhuisbg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.background.flash {
+  background-color: white;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  font-size: 140px;
+  text-shadow: 0 0 50px black;
+  margin-top: 1em;
+  background: rgba(0,0,0,0.5);
+  height: 150px;
+  line-height: 140px;
+}
+
+.number {
+  color: red;
+  font-size: 400px;
+  display: block;
+  margin: 0 calc(50% - 350px);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  width: 700px;
+  height: 700px;
+  text-align: center;
+  line-height: 700px;
+  font-weight: bold;
+}
