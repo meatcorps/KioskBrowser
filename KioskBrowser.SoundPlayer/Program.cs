@@ -1,5 +1,6 @@
 ﻿using System.Security.AccessControl;
 using System.Security.Principal;
+using KioskBrowser.Core.Service;
 using NAudio.Utils;
 using NAudio.Wave;
 
@@ -11,33 +12,27 @@ if (filePath is null)
     Environment.Exit(0);
 }
 
+var singleInstanceService = new SingleInstanceService("KioskBrowser.SoundPlayer");
 
+singleInstanceService.OnAnotherInstanceDetected +=
+    () => Console.WriteLine("Another instance is already running. Signaling it to stop...");
 
-var mutex = new Mutex(false, "KioskBrowser.SoundPlayer");
-var stopEvent = new EventWaitHandle(false, EventResetMode.ManualReset, "KioskBrowser.SoundPlayerStopEvent");
+singleInstanceService.OnThisNeedToShutdown += () =>
+{
+    Console.WriteLine("");
+    Console.WriteLine("Another instance is already running. Stopping...");
+    Environment.Exit(0);
+};
 
 Console.CancelKeyPress += (sender, e) =>
 {
     Console.WriteLine("");
     Console.WriteLine("Exiting...");
-    mutex.ReleaseMutex();
-    mutex.Dispose();
+    singleInstanceService.Dispose();
     Environment.Exit(0);
 };
 
-if (!mutex.WaitOne(TimeSpan.Zero, true))
-{
-    // If another instance is running, signal it to stop
-    Console.WriteLine("Another instance is already running. Signaling it to stop...");
-    stopEvent.Set(); // Signal the first instance to stop
-    Thread.Sleep(100);
-
-    stopEvent.Reset();
-    mutex.Dispose();
-    mutex = new Mutex(true, "KioskBrowser.SoundPlayer");
-}
-
-
+singleInstanceService.Start();
 
 Console.WriteLine("Playing file: " + filePath);
 try
@@ -53,8 +48,7 @@ try
         {
             Console.WriteLine("");
             Console.WriteLine("Sound played 100% exiting...");
-            mutex.ReleaseMutex();
-            mutex.Dispose();
+            singleInstanceService.Dispose();
             Environment.Exit(0);
         };
 
@@ -66,17 +60,6 @@ try
             var percentage = Math.Round(position.TotalMilliseconds / total.TotalMilliseconds * 100);
             Console.Write(percentage + "% Current Position: " + position + " Total lenght: " + total + "          ");
             Console.SetCursorPosition(0, Console.CursorTop);
-
-            if (stopEvent.WaitOne(0))
-            {
-                
-                Console.WriteLine("");
-                Console.WriteLine("Another instance is already running. Stopping...");
-                mutex.ReleaseMutex();
-                mutex.Dispose();
-                Environment.Exit(0);
-                break;
-            }
 
             if (Console.KeyAvailable)
             {
@@ -119,6 +102,5 @@ catch (Exception e)
 }
 finally
 {
-    mutex.ReleaseMutex();
-    mutex.Dispose();
+    singleInstanceService.Dispose();
 }
