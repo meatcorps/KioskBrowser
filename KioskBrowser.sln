@@ -17,6 +17,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.PositionUtilit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.ExternalWebService", "KioskBrowser.ExternalWebService\KioskBrowser.ExternalWebService.csproj", "{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.Mqtt.ExecWatcher", "KioskBrowser.Mqtt.ExecWatcher\KioskBrowser.Mqtt.ExecWatcher.csproj", "{91A90766-7097-4014-9905-8BCBA664D9ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.SoundPlayer", "KioskBrowser.SoundPlayer\KioskBrowser.SoundPlayer.csproj", "{C6A3E164-FC04-4331-B957-A6A23F6066E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.ImageOverlay", "KioskBrowser.ImageOverlay\KioskBrowser.ImageOverlay.csproj", "{9FF93BC2-DCAF-4E89-BCE2-90011AF5333D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +87,30 @@ Global
 		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Release|x64.ActiveCfg = Release|Any CPU
 		{E9B50C2E-F287-43AF-BEB4-433780F5EAE1}.Release|x64.Build.0 = Release|Any CPU
+		{91A90766-7097-4014-9905-8BCBA664D9ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91A90766-7097-4014-9905-8BCBA664D9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91A90766-7097-4014-9905-8BCBA664D9ED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{91A90766-7097-4014-9905-8BCBA664D9ED}.Debug|x64.Build.0 = Debug|Any CPU
+		{91A90766-7097-4014-9905-8BCBA664D9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91A90766-7097-4014-9905-8BCBA664D9ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91A90766-7097-4014-9905-8BCBA664D9ED}.Release|x64.ActiveCfg = Release|Any CPU
+		{91A90766-7097-4014-9905-8BCBA664D9ED}.Release|x64.Build.0 = Release|Any CPU
+		{C6A3E164-FC04-4331-B957-A6A23F6066E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6A3E164-FC04-4331-B957-A6A23F6066E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6A3E164-FC04-4331-B957-A6A23F6066E9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C6A3E164-FC04-4331-B957-A6A23F6066E9}.Debug|x64.Build.0 = Debug|Any CPU
+		{C6A3E164-FC04-4331-B957-A6A23F6066E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6A3E164-FC04-4331-B957-A6A23F6066E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6A3E164-FC04-4331-B957-A6A23F6066E9}.Release|x64.ActiveCfg = Release|Any CPU
+		{C6A3E164-FC04-4331-B957-A6A23F6066E9}.Release|x64.Build.0 = Release|Any CPU
+		{9FF93BC2-DCAF-4E89-BCE2-90011AF5333D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FF93BC2-DCAF-4E89-BCE2-90011AF5333D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FF93BC2-DCAF-4E89-BCE2-90011AF5333D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9FF93BC2-DCAF-4E89-BCE2-90011AF5333D}.Debug|x64.Build.0 = Debug|Any CPU
+		{9FF93BC2-DCAF-4E89-BCE2-90011AF5333D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FF93BC2-DCAF-4E89-BCE2-90011AF5333D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FF93BC2-DCAF-4E89-BCE2-90011AF5333D}.Release|x64.ActiveCfg = Release|Any CPU
+		{9FF93BC2-DCAF-4E89-BCE2-90011AF5333D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
