@@ -4,47 +4,40 @@
 
 using System.Diagnostics;
 using System.Text;
+using KioskBrowser.Core.Service;
+using KioskBrowser.Data;
+using KioskBrowser.Mqtt.ExecWatcher;
 using MQTTnet;
 using MQTTnet.Client;
 
-var factory = new MqttFactory();
-var mqttClient = factory.CreateMqttClient();
+var settings = SettingsLoader<ExecWatcherSettings>.ReadConfig(new FileInfo("settings.json"))!;
 
-// Define the MQTT client options
-var options = new MqttClientOptionsBuilder()
-    .WithCredentials("user", "admin")
-    .WithTcpServer("app.emmastraat67.local", 1883) // Replace with your MQTT broker address
-    .WithCleanSession()
-    .Build();
+Console.WriteLine($"Starting client on {settings.Url}");
 
-// Define a handler for received messages
-mqttClient.ApplicationMessageReceivedAsync += e =>
+var client = new KioskMqttClient(settings.Url!);
+
+await client.Connect();
+(await client.SubscribeToTopic(settings.Topic!)).Subscribe(payload =>
 {
-    var topic = e.ApplicationMessage.Topic;
-    var payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-
     Process.Start("cmd.exe", $"/c {payload}");
-    Console.WriteLine("test");
     
-    Console.WriteLine($"Received message on topic '{topic}': {payload}");
-    return Task.CompletedTask;
+    Console.WriteLine($"Received message on topic '{settings.Topic}': {payload}");
+});
+Console.WriteLine($"Start listening on '{settings.Topic}'. Press CTRL+C to exit.");
+
+var run = true;
+
+Console.CancelKeyPress += (sender, e) =>
+{
+    run = false;
+    Console.WriteLine($"Exiting...");
 };
 
-// Connect to the MQTT broker
-await mqttClient.ConnectAsync(options, CancellationToken.None);
-Console.WriteLine("Connected to the MQTT broker.");
+while (run)
+{
+    await Task.Delay(100);
+}
 
-// Subscribe to a topic
-var topicToSubscribe = "test/topic";
-await mqttClient.SubscribeAsync(new MqttClientSubscribeOptionsBuilder()
-    .WithTopicFilter(f => f.WithTopic(topicToSubscribe))
-    .Build());
+client.Dispose();
 
-Console.WriteLine($"Subscribed to topic '{topicToSubscribe}'.");
-
-// Keep the application running
-Console.WriteLine("Press any key to exit.");
-Console.ReadLine();
-
-// Disconnect the client
-await mqttClient.DisconnectAsync();
+Environment.Exit(0);

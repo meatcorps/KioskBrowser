@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IProductData} from "../../interfaces/IProductData";
 import {IGroupData} from "../../interfaces/IGroupData";
-import {DataHubService} from "../../hubs/data-hub.service";
+import {DataHubService, IActionData} from "../../hubs/data-hub.service";
 import {GlobalStorageService} from "../../services/global-storage.service";
 
 @Component({
@@ -11,11 +11,13 @@ import {GlobalStorageService} from "../../services/global-storage.service";
 })
 export class SupplyComponent implements OnInit {
   private products: IProductData[] = [];
+  public actions: IActionData[] = [];
   public groups: IGroupData[] = [];
   public page: number = 0;
   public position: number = 0;
   public mode: string = "-";
   public currentProduct: IProductData = {id: '', group: '', sortIndex: 0, name: '', totalItems: 0};
+  public currentAction: IActionData = {id: '', name: '', action: '', target: ''};
   public nextInLineNumber: number = 0;
 
   constructor(public data: DataHubService, public globalStorage: GlobalStorageService) { }
@@ -31,8 +33,12 @@ export class SupplyComponent implements OnInit {
         .allGroups()
         .then(x => this.setGroupCollection(x));
 
+      this.data.allAction()
+        .then(x => { this.actions = x; console.log("Actions", x)});
+
       this.data.productDataChange.subscribe(x => this.setProductCollection(x));
       this.data.groupDataChange.subscribe(x => this.setGroupCollection(x));
+      this.data.actionDataChange.subscribe(x => this.actions = x);
     });
 
     this.globalStorage.connectionReady.subscribe(() => {
@@ -106,6 +112,33 @@ export class SupplyComponent implements OnInit {
     }
     this.data.removeProduct(this.currentProduct).finally(() => alert('Done'));
     this.resetCurrentProduct();
+  }
+
+  public addCurrentAction() {
+    this.currentAction.id = '';
+    this.saveCurrentAction();
+  }
+
+  public saveCurrentAction() {
+    this.data.addEditAction(this.currentAction).finally(() => {});
+    this.resetCurrentAction();
+  }
+
+
+  public doAction(action: IActionData) {
+    this.data.doAction(action).finally(() => {});
+  }
+
+  public resetCurrentAction() {
+    this.currentAction = {id: '', name: '', action: '', target: ''};
+  }
+
+  public removeCurrentAction() {
+    if (!confirm('Are you sure?')) {
+      return;
+    }
+    this.data.removeAction(this.currentAction).finally(() => alert('Done'));
+    this.resetCurrentAction();
   }
 
   public NextInLine() {

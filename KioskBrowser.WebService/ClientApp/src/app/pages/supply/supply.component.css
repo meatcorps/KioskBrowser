@@ -48,8 +48,9 @@ h1 {
   z-index: 100;
   left: 0;
   top: 0;
-  text-align: right;
+  text-align: left;
   white-space: nowrap;
+  width: 100vw;
 }
 
 .toolbar-group {
@@ -62,11 +63,26 @@ h1 {
 }
 
 .spacer {
-  height: 50px;
+  height: 70px;
 }
 
 .large {
   color: greenyellow;
   font-size: 2em;
   vertical-align: middle;
+}
+
+.product-edit {
+  background: rgba(128,128,128,0.1);
+  border-radius: 5px;
+  padding: 5px 5px 0 5px;
+  margin: 5px 5px 0 5px;
+  line-height: 50px;
+  border-top: 1px solid rgba(255,255,255,0.5);
+}
+
+
+.toolbar-group.right {
+  position: absolute;
+  right: 15px;
 }

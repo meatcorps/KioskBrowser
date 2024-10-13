@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using KioskBrowser.Core.Service;
 using KioskBrowser.Data;
 using KioskBrowser.DataService;
 using KioskBrowser.DataService.Services;
@@ -51,7 +52,12 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
     builder.RegisterType<MessageBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<ProductBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<StorageBindService>().AsSelf().SingleInstance().AutoActivate();
+    builder.RegisterType<ActionBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<PhotoBindService>().AsSelf().SingleInstance().AutoActivate();
+    builder.RegisterType<KioskMqttClient>().AsSelf().SingleInstance().AutoActivate()
+        .WithParameter("url", settings.BrokerUrl!)
+        .OnActivated(i => Task.Run(async () => await i.Instance.Connect()));
+        
     builder.RegisterType<MessagePictureImporter>().AsSelf().SingleInstance().AutoActivate()
         .WithParameter("code", settings.ExternalCode!)
         .WithParameter("adminCode", settings.ExternalAdminCode!)

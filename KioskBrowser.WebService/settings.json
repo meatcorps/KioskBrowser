@@ -4,5 +4,6 @@
   "PictureUrlLocation": "http://localhost:5000/app/photos/",
   "ExternalUrl": "https://localhost:5000",
   "ExternalCode": "1337",
-  "ExternalAdminCode": "Admin"
+  "ExternalAdminCode": "Admin",
+  "BrokerUrl": "localhost" 
 }

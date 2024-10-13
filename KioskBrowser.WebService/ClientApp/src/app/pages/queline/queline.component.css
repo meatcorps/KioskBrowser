@@ -2,7 +2,7 @@
   background: #111111;
   width: 100vw;
   height: 100vh;
-  background-image: url("/assets/ziekenhuisbg.png");
+  background-image: url("/assets/bg.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
@@ -13,7 +13,7 @@
 }
 
 .background.flash {
-  background-color: white;
+  background: white;
 }
 
 h1 {

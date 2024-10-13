@@ -2,17 +2,17 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MQTTnet" Version="4.3.7.1207" />
+      <ProjectReference Include="..\KioskBrowser.Core\KioskBrowser.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="topic.txt">
+      <None Update="settings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

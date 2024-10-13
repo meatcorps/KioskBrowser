@@ -21,6 +21,7 @@ public class DataCollectionService: IDisposable
     public CrudManager<MessageData>? MessageData { get; private set; }
     public CrudManager<ProductData>? ProductData { get; private set; }
     public CrudManager<StorageData>? StorageData { get; private set; }
+    public CrudManager<ActionData>? ActionData { get; private set; }
 
     public IObservable<Unit> OnReady => IsReady 
         ? Observable.Return(Unit.Default) 
@@ -55,11 +56,13 @@ public class DataCollectionService: IDisposable
         MessageData = new CrudManager<MessageData>(_collectionData.Messages);
         ProductData = new CrudManager<ProductData>(_collectionData.Products);
         StorageData = new CrudManager<StorageData>(_collectionData.Storage);
+        ActionData = new CrudManager<ActionData>(_collectionData.Actions);
 
         SubScribeToAllToTriggerSave(GroupData);
         SubScribeToAllToTriggerSave(MessageData);
         SubScribeToAllToTriggerSave(ProductData);
         SubScribeToAllToTriggerSave(StorageData);
+        SubScribeToAllToTriggerSave(ActionData);
         
         _onReadySubject.OnNext(Unit.Default);
     }

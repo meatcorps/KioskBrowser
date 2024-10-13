@@ -9,29 +9,47 @@
       Next
     </button>
   </div>
-  <div class="toolbar-group">
+  <div class="toolbar-group right">
     <mat-button-toggle-group name="fontStyle" [(ngModel)]="mode" aria-label="Font Style">
       <mat-button-toggle value="+">Add</mat-button-toggle>
       <mat-button-toggle value="-">Subtract</mat-button-toggle>
       <mat-button-toggle value="x">Select</mat-button-toggle>
+      <mat-button-toggle value="actions">Actions</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 </div>
 <div class="spacer"></div>
-<div class="group" *ngFor="let group of groups; let i = index">
-  <h1>{{group.name}}</h1>
 
-    <button class="supply-button group-color-{{i}}"
-            (click)="changeSupply(product)"
-      mat-raised-button color="Success"
-      *ngFor="let product of allProductsFromGroup(group)"
-      [matBadge]="product.totalItems" matBadgePosition="after" matBadgeColor="accent"
-    >
-      <span class="title">{{product.name}}</span>
-    </button>
+
+<div class="group" *ngIf="mode === 'actions'">
+  <h1>Actions</h1>
+
+  <button class="supply-button group-color-1"
+          (click)="currentAction = action"
+          (dblclick)="doAction(action)"
+          mat-raised-button color="Success"
+          *ngFor="let action of actions"
+  >
+    <span class="title">{{action.name}}</span>
+  </button>
 
 </div>
-<div class="product-edit">
+<div *ngIf="mode !== 'actions'">
+  <div class="group" *ngFor="let group of groups; let i = index">
+    <h1>{{group.name}}</h1>
+
+      <button class="supply-button group-color-{{i}}"
+              (click)="changeSupply(product)"
+        mat-raised-button color="Success"
+        *ngFor="let product of allProductsFromGroup(group)"
+        [matBadge]="product.totalItems" matBadgePosition="after" matBadgeColor="accent"
+      >
+        <span class="title">{{product.name}}</span>
+      </button>
+
+  </div>
+</div>
+<div class="product-edit" *ngIf="mode !== 'actions'">
   <mat-form-field class="simple editor" appearance="fill" style="width: 300px;">
     <mat-label>Product name</mat-label>
     <input matInput placeholder="My awesome product" [(ngModel)]="currentProduct.name">
@@ -55,6 +73,30 @@
     <mat-icon>save</mat-icon>
   </button>
   <button mat-icon-button color="accent" [disabled]="currentProduct.id === ''" (click)="removeCurrentProduct()">
+    <mat-icon>remove</mat-icon>
+  </button>
+</div>
+
+<div class="product-edit" *ngIf="mode === 'actions'">
+  <mat-form-field class="simple editor" appearance="fill" style="width: 200px;">
+    <mat-label>Action name</mat-label>
+    <input matInput placeholder="My awesome action" [(ngModel)]="currentAction.name">
+  </mat-form-field>&nbsp;
+  <mat-form-field class="simple editor" appearance="fill" style="width: 200px;">
+    <mat-label>Topic</mat-label>
+    <input matInput placeholder="My awesome product" [(ngModel)]="currentAction.target">
+  </mat-form-field>&nbsp;
+  <mat-form-field class="simple editor" appearance="fill" style="width: 50vw;">
+    <mat-label>Action Command</mat-label>
+    <input matInput placeholder="My awesome action" [(ngModel)]="currentAction.action">
+  </mat-form-field>
+  <button mat-icon-button color="accent" [disabled]="currentAction.name === '' || currentAction.action === '' || currentAction.target === ''" (click)="addCurrentAction()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-icon-button color="accent" [disabled]="currentAction.id === ''" (click)="saveCurrentAction()">
+    <mat-icon>save</mat-icon>
+  </button>
+  <button mat-icon-button color="accent" [disabled]="currentAction.id === ''" (click)="removeCurrentAction()">
     <mat-icon>remove</mat-icon>
   </button>
 </div>

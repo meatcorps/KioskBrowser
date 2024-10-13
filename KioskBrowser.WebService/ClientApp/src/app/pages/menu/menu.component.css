@@ -3,79 +3,9 @@
   margin: 0;
   height: 100vh;
   font-weight: 100;
-  background: linear-gradient(-45deg, #634278, #311F3D, #519945, #78302A);
-  background-size: 400% 400%;
-  animation: gradient 45s ease infinite;
+  background: black url("/assets/bg.png") repeat-x;
   opacity: 0.7;
 }
-
-.light {
-  position: absolute;
-  width: 0px;
-  opacity: .75;
-  background-color: white;
-  box-shadow: white 0px 0px 20px 2px;
-  opacity: 0;
-  top: 100vh;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  margin: auto;
-}
-
-.x1{
-  animation: floatDown 4s infinite linear;
-  transform: scale(1.0);
-}
-
-.x2{
-  animation: floatDown 7s infinite linear;
-  transform: scale(1.6);
-  left: 15%;
-}
-
-.x3{
-  animation: floatDown 2.5s infinite linear;
-  transform: scale(.5);
-  left: -15%;
-}
-
-.x4{
-  animation: floatDown 4.5s infinite linear;
-  transform: scale(1.2);
-  left: -34%;
-}
-
-.x5{
-  animation: floatDown 8s infinite linear;
-  transform: scale(2.2);
-  left: -57%;
-}
-
-.x6{
-  animation: floatDown 3s infinite linear;
-  transform: scale(.8);
-  left: -81%;
-}
-
-.x7{
-  animation: floatDown 5.3s infinite linear;
-  transform: scale(3.2);
-  left: 37%;
-}
-
-.x8{
-  animation: floatDown 4.7s infinite linear;
-  transform: scale(1.7);
-  left: 62%;
-}
-
-.x9{
-  animation: floatDown 4.1s infinite linear;
-  transform: scale(0.9);
-  left: 85%;
-}
-
 button:focus{
   outline: none;
 }
@@ -198,5 +128,5 @@ button:focus{
 
 
 h1 {
-  color: #af77c2;
+  color: darkred;
 }

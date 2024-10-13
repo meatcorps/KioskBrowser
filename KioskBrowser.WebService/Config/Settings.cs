@@ -11,4 +11,5 @@ public class Settings
     public string? ExternalAdminCode;
     public string? ExternalCode;
     public string? ExternalUrl;
+    public string? BrokerUrl;
 }

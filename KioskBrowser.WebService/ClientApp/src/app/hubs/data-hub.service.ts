@@ -6,6 +6,7 @@ import {IGroupData} from '../interfaces/IGroupData';
 import {IProductData} from "../interfaces/IProductData";
 import {IMessageData} from "../interfaces/IMessageData";
 import {IStorageData} from "../interfaces/IStorageData";
+import {IActionData} from "../interfaces/IActionData";
 import {take} from "rxjs/operators";
 import {environment} from "../../environments/environment";
 import { RetryPolicy } from './retrypolicy';
@@ -26,6 +27,8 @@ export class DataHubService {
   public storageChangeChange: Observable<IStorageData> = this.storageChangeSubject.asObservable();
   private storageRemoveSubject: Subject<IStorageData> = new Subject<any>();
   public storageRemoveChange: Observable<IStorageData> = this.storageRemoveSubject.asObservable();
+  private actionChangeSubject: Subject<IActionData[]> = new Subject<any>();
+  public actionDataChange: Observable<IActionData[]> = this.actionChangeSubject.asObservable();
   private newPhotoSubject: Subject<string> = new Subject<any>();
   public newPhoto: Observable<string> = this.newPhotoSubject.asObservable();
 
@@ -71,6 +74,7 @@ export class DataHubService {
     this.hubConnection.on('AllGroups', (data: any) => this.groupDataChangeSubject.next(data));
     this.hubConnection.on('IncomingMessage', (data: any) => this.incomingMessageSubject.next(data));
     this.hubConnection.on('AllProducts', (data: any) => this.productChangeSubject.next(data));
+    this.hubConnection.on('AllActions', (data: any) => this.actionChangeSubject.next(data));
     this.hubConnection.on('StorageChange', (data: any) => this.storageChangeSubject.next(data));
     this.hubConnection.on('StorageRemove', (data: any) => this.storageRemoveSubject.next(data));
   }
@@ -125,6 +129,28 @@ export class DataHubService {
     return this.hubConnection.invoke("AllMessages");
   }
 
+  public addEditAction(action: IActionData): Promise<void> {
+    console.log("AddEditAction", action);
+    return this.hubConnection.invoke(
+      "AddEditAction",
+      action.id,
+      action.name,
+      action.action,
+      action.target);
+  }
+
+  public removeAction(action: IActionData): Promise<void> {
+    return this.hubConnection.invoke("RemoveAction", action.id);
+  }
+
+  public doAction(action: IActionData): Promise<void> {
+    return this.hubConnection.invoke("DoAction", action.id);
+  }
+
+  public allAction(): Promise<IActionData[]> {
+    return this.hubConnection.invoke("AllActions");
+  }
+
   public addEditStorage(storageItem: IStorageData): Promise<void> {
     return this.hubConnection.invoke(
       "AddEditStorage",
@@ -172,12 +198,12 @@ export class DataHubService {
     .get(environment.url + '/Supply/Products/Subtract/' + product.id).pipe(take(1));
     return data;
   }
-
 }
 
 export {
   IGroupData,
   IMessageData,
   IProductData,
-  IStorageData
+  IStorageData,
+  IActionData
 }
