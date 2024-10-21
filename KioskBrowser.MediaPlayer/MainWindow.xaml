@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KioskBrowser.MediaPlayer"
+        xmlns:wpf="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Topmost="True"
@@ -11,6 +12,7 @@
         AllowsTransparency="True"
         Background="{x:Null}">
     <Grid>
-        <MediaElement x:Name="mePlayer" Stretch="Uniform" MediaEnded="MePlayer_OnMediaEnded" />
+        <!--<MediaElement x:Name="mePlayer" Stretch="Uniform" MediaEnded="MePlayer_OnMediaEnded" />-->
+        <wpf:VlcControl x:Name="mePlayer" />
     </Grid>
 </Window>

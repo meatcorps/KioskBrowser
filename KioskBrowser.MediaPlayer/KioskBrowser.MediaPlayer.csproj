@@ -9,12 +9,23 @@
         <ApplicationIcon>movie.ico</ApplicationIcon>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
     <ItemGroup>
       <ProjectReference Include="..\KioskBrowser.Core\KioskBrowser.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="LibVLCSharp" Version="3.9.0" />
       <PackageReference Include="System.Reactive" Version="5.0.0" />
+      <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.21" />
+      <PackageReference Include="Vlc.DotNet.Wpf" Version="3.1.0" />
     </ItemGroup>
 
     <ItemGroup>

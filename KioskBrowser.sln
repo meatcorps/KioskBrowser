@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.ImageOverlay",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.MediaPlayer", "KioskBrowser.MediaPlayer\KioskBrowser.MediaPlayer.csproj", "{275F14D9-56F9-4230-8383-CB418EB165E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrowser.Mqtt.Scheduler", "KioskBrowser.Mqtt.Scheduler\KioskBrowser.Mqtt.Scheduler.csproj", "{0901998F-1D24-4C4C-B0C1-EC00AC329FB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,14 @@ Global
 		{275F14D9-56F9-4230-8383-CB418EB165E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{275F14D9-56F9-4230-8383-CB418EB165E9}.Release|x64.ActiveCfg = Release|Any CPU
 		{275F14D9-56F9-4230-8383-CB418EB165E9}.Release|x64.Build.0 = Release|Any CPU
+		{0901998F-1D24-4C4C-B0C1-EC00AC329FB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0901998F-1D24-4C4C-B0C1-EC00AC329FB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0901998F-1D24-4C4C-B0C1-EC00AC329FB4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0901998F-1D24-4C4C-B0C1-EC00AC329FB4}.Debug|x64.Build.0 = Debug|Any CPU
+		{0901998F-1D24-4C4C-B0C1-EC00AC329FB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0901998F-1D24-4C4C-B0C1-EC00AC329FB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0901998F-1D24-4C4C-B0C1-EC00AC329FB4}.Release|x64.ActiveCfg = Release|Any CPU
+		{0901998F-1D24-4C4C-B0C1-EC00AC329FB4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

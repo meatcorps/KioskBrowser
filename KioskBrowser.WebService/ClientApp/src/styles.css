@@ -66,3 +66,12 @@ body.menu {
   font-size: 100px;
   line-height: 100vh;
 }
+
+.blackout {
+  background: black;
+  color: red;
+  width: 100vw;
+  height: 100vh;
+  font-size: 100px;
+  text-align: center;
+}

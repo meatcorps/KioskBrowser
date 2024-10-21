@@ -5,4 +5,5 @@
   <div class="offline" *ngIf="!data.connected">
     <h1>Offline</h1>
   </div>
+  <div class="blackout" *ngIf="blackout && currentPage !== 'supply'"></div>
 </body>

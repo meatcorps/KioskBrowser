@@ -13,7 +13,7 @@ export class QuelineComponent implements OnInit {
 
   public ngOnInit(): void {
     this.globalStorage.connectionReady.subscribe(() => {
-      this.globalStorage.changeReceived.subscribe(() => {
+      this.globalStorage.changeReceived.subscribe(item => {
         this.receiveNextInLine();
       });
 
@@ -23,16 +23,19 @@ export class QuelineComponent implements OnInit {
 
   private receiveNextInLine() {
     const nextInLineNumber = parseInt(this.globalStorage.get("nextInLineNumber")) ?? 1;
-
+    var isSame = nextInLineNumber == this.nextInLineNumber;
     if (isNaN(nextInLineNumber)) {
       this.nextInLineNumber = 1;
     } else {
       this.nextInLineNumber = nextInLineNumber;
     }
-    this.flash = true;
-    setTimeout(() => {
-      this.flash = false;
-    }, 2000);
+
+    if (!isSame) {
+      this.flash = true;
+      setTimeout(() => {
+        this.flash = false;
+      }, 2000);
+    }
   }
 
 }

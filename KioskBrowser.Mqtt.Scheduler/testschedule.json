@@ -1,0 +1,19 @@
+﻿{
+  "Items": [{
+    "TimeInMS": 5000,
+    "Topic": "TestTopicVideo",
+    "Action": "repeat Z:\\Projects\\Pictures\\Ziekenhuislogo\\videos\\flash.mp4"
+  },{
+    "TimeInMS": 10000,
+    "Topic": "TestTopicVideo",
+    "Action": "-"
+  },{
+    "TimeInMS": 60000,
+    "Topic": "TestTopicVideo",
+    "Action": "once Z:\\Projects\\Pictures\\Ziekenhuislogo\\videos\\bsod.mp4"
+  },{
+    "TimeInMS": 120000,
+    "Topic": "TestTopicVideo",
+    "Action": "once Z:\\Projects\\Pictures\\Ziekenhuislogo\\videos\\bsod.mp4"
+  }]
+}

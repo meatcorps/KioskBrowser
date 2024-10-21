@@ -54,6 +54,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
     builder.RegisterType<StorageBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<ActionBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<PhotoBindService>().AsSelf().SingleInstance().AutoActivate();
+    builder.RegisterType<FakeBlackoutService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<KioskMqttClient>().AsSelf().SingleInstance().AutoActivate()
         .WithParameter("url", settings.BrokerUrl!)
         .OnActivated(i => Task.Run(async () => await i.Instance.Connect()));
@@ -77,6 +78,14 @@ app.UseStaticFiles(new StaticFileOptions()
     FileProvider = new PhysicalFileProvider(
         FileUtilities.GetExecutingFile("wwwroot").FullName),
     RequestPath = new PathString("/app")
+});
+
+
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(
+        FileUtilities.GetExecutingFile(Path.Combine("wwwroot", "assets")).FullName),
+    RequestPath = new PathString("/assets")
 });
 
 app.UseCors("CorsPolicy");

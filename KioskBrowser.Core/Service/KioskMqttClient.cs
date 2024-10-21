@@ -1,4 +1,5 @@
-﻿using System.Reactive.Linq;
+﻿using System.Reactive;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using MQTTnet;
@@ -12,6 +13,8 @@ public sealed class KioskMqttClient : IDisposable
     private readonly IMqttClient _client;
     
     private Subject<Tuple<string, string>> _messageReceived = new();
+    private Subject<Unit> _connected = new();
+    public IObservable<Unit> Connected => _connected.AsObservable();
 
     public KioskMqttClient(string url)
     {
@@ -39,6 +42,8 @@ public sealed class KioskMqttClient : IDisposable
         };
 
         await _client.ConnectAsync(options, CancellationToken.None);
+        
+        _connected.OnNext(Unit.Default);
     }
 
     public async Task<IObservable<string>> SubscribeToTopic(string topic)

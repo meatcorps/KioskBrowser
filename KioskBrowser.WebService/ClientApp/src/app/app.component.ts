@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   counter = 0;
   public guid: string = '';
   public currentPage = '';
+  blackout: boolean;
 
   constructor(public data: DataHubService, private routing: Router) {
   }
@@ -23,6 +24,11 @@ export class AppComponent implements OnInit {
       filter((e) => e instanceof NavigationStart)
     ).subscribe((x: any) => {
       this.currentPage = x.url.replace('/', '');
+    });
+    this.data.storageChangeChange.subscribe((data) => {
+      if (data.key === 'blackout') {
+        this.blackout = data.value === 'ON';
+      }
     });
   }
 

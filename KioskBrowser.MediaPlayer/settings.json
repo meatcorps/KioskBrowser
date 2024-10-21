@@ -1,10 +1,12 @@
 ﻿{
   "AppName": "MediaTest",
-  "VideoPath": "Z:\\Videos\\[TorrentCounter.net].Mr.Robot.S03E02.HDTV.x264.mkv",
+  "VideoPath": "TestVideo.mp4",
   "X": -2560,
   "Y": 0,
   "Width": 2560,
   "Height": 1440,
   "Repeat": true,
-  "Muted": false
+  "Muted": false,
+  "Topic": "TestTopic",
+  "Url": "localhost"
 }

@@ -1,6 +1,7 @@
 ﻿using System.Security.AccessControl;
 using System.Security.Principal;
 using KioskBrowser.Core.Service;
+using KioskBrowser.SoundPlayer;
 using NAudio.Utils;
 using NAudio.Wave;
 
@@ -37,14 +38,12 @@ singleInstanceService.Start();
 Console.WriteLine("Playing file: " + filePath);
 try
 {
-    using (var audioFile = new AudioFileReader(filePath))
-    using (var outputDevice = new WaveOutEvent())
+    using (var soundPlayer = new SoundPlayer())
     {
-        outputDevice.Init(audioFile);
-        outputDevice.Play();
+        await soundPlayer.OpenFile(filePath, true);
 
         // Subscribe to the PlaybackStopped event
-        outputDevice.PlaybackStopped += (sender, e) =>
+        soundPlayer.OnPLayBackEnded += () =>
         {
             Console.WriteLine("");
             Console.WriteLine("Sound played 100% exiting...");
@@ -53,10 +52,10 @@ try
         };
 
         // Keep the application running while the audio is playing
-        while (outputDevice.PlaybackState == PlaybackState.Playing)
+        while (soundPlayer.IsPlaying)
         {
-            var position = audioFile.CurrentTime;
-            var total = audioFile.TotalTime;
+            var position = soundPlayer.CurrentTime;
+            var total = soundPlayer.TotalTime;
             var percentage = Math.Round(position.TotalMilliseconds / total.TotalMilliseconds * 100);
             Console.Write(percentage + "% Current Position: " + position + " Total lenght: " + total + "          ");
             Console.SetCursorPosition(0, Console.CursorTop);
@@ -76,7 +75,7 @@ try
                         if (newTime < TimeSpan.Zero)
                             newTime = TimeSpan.Zero;
 
-                        audioFile.CurrentTime = newTime;
+                        soundPlayer.Seek(newTime);
                         break;
                     }
                     case ConsoleKey.RightArrow:
@@ -86,7 +85,7 @@ try
                         if (newTime > total)
                             newTime = total;
 
-                        audioFile.CurrentTime = newTime;
+                        soundPlayer.Seek(newTime);
                         break;
                     }
                 }

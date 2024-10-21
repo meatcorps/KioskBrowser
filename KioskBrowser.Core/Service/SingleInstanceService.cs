@@ -1,62 +1,88 @@
-﻿namespace KioskBrowser.Core.Service;
+﻿using System.IO.Pipes;
+
+namespace KioskBrowser.Core.Service;
 
 public class SingleInstanceService : IDisposable
 {
     public event Action? OnAnotherInstanceDetected;
     public event Action? OnThisNeedToShutdown;
-    private readonly string _applicationName;
-    private EventWaitHandle _stopEvent;
-    
+    private readonly string _pipeName;
     private bool _run = true;
     
     public SingleInstanceService(string applicationName)
     {
-        _applicationName = applicationName;
+        _pipeName = applicationName;
         
-        _stopEvent = new EventWaitHandle(false, EventResetMode.ManualReset, $"{applicationName}StopEvent");
     }
     
     public void Start()
     {
-        _ = Task.Run(MonitorStopEvent);
+        _ = Task.Run(StartPipeServer);
+    }
+    
+    private bool IsAnotherInstanceRunning()
+    {
+        try
+        {
+            using (var client = new NamedPipeClientStream(".", _pipeName, PipeDirection.Out))
+            {
+                client.Connect(100); // Try to connect to the pipe within 100ms
+                return client.IsConnected;
+            }
+        }
+        catch
+        {
+            return false; // Pipe does not exist, so no other instance is running
+        }
     }
 
-    private async Task MonitorStopEvent()
-    {
-        var mutex = new Mutex(false, _applicationName);
-        
-        if (!mutex.WaitOne(TimeSpan.Zero, true))
-        {
-            // If another instance is running, signal it to stop
-            _ = Task.Run(() => OnAnotherInstanceDetected?.Invoke());
-            _stopEvent.Set(); // Signal the first instance to stop
-            await Task.Delay(100);
 
-            _stopEvent.Reset();
-            mutex.Dispose();
-            mutex = new Mutex(true, _applicationName);
-        }
-        
-        while (_run)
+    private void NotifyExistingInstanceToClose()
+    {
+        try
         {
-            if (_stopEvent.WaitOne(0))
+            using (var client = new NamedPipeClientStream(".", _pipeName, PipeDirection.Out))
             {
-            
-                Dispose();
-                break;
+                client.ConnectAsync(100).Wait();
+                if (client.IsConnected)
+                    using (var writer = new StreamWriter(client))
+                    {
+                        writer.Write("exit");
+                        writer.Flush();
+                    }
             }
-            
-            await Task.Delay(100);
         }
-        
-        mutex.ReleaseMutex();
-        mutex.Dispose();
-        _ = Task.Run(() => OnThisNeedToShutdown?.Invoke());
+        catch (Exception ex)
+        {
+            Console.WriteLine("Failed to notify existing instance: " + ex.Message);
+        }
+    }
+
+    
+    private void StartPipeServer()
+    {
+        if (IsAnotherInstanceRunning())
+        {
+            OnAnotherInstanceDetected?.Invoke();
+            NotifyExistingInstanceToClose();
+            Task.Delay(100).Wait();
+        }
+        Console.WriteLine("Running server...");
+        using (var server = new NamedPipeServerStream(_pipeName, PipeDirection.In))
+        {
+            while (_run)
+            {
+                // Wait for a client to connect
+                server.WaitForConnection();
+                // Disconnect and wait for the next connection
+                server.Disconnect();
+                OnThisNeedToShutdown?.Invoke();
+            }
+        }
     }
 
     public void Dispose()
     {
-        _stopEvent.Dispose();
         _run = false;
     }
 }
