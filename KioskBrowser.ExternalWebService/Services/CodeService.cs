@@ -11,6 +11,7 @@ public class CodeService
         return File.ReadAllText(FileUtilities.GetExecutingDirectory("codes.txt"))
             .Replace("\r", "")
             .Split("\n")
+            .Where(x => !string.IsNullOrWhiteSpace(x) && x.Contains('|'))
             .Select(
                 x =>
                 {
