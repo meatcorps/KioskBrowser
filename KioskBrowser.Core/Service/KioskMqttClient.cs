@@ -14,6 +14,8 @@ public sealed class KioskMqttClient : IDisposable
     
     private Subject<Tuple<string, string>> _messageReceived = new();
     private Subject<Unit> _connected = new();
+    private bool _running = true;
+    
     public IObservable<Unit> Connected => _connected.AsObservable();
 
     public KioskMqttClient(string url)
@@ -44,6 +46,23 @@ public sealed class KioskMqttClient : IDisposable
         await _client.ConnectAsync(options, CancellationToken.None);
         
         _connected.OnNext(Unit.Default);
+
+        while (_running)
+        {
+            try
+            {
+                if (_client.IsConnected)
+                    await _client.PingAsync(CancellationToken.None);
+                else 
+                    await _client.ConnectAsync(options, CancellationToken.None);
+                
+                await Task.Delay(1000);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
     }
 
     public async Task<IObservable<string>> SubscribeToTopic(string topic)
@@ -72,5 +91,6 @@ public sealed class KioskMqttClient : IDisposable
         _client.DisconnectAsync().Wait();
         _messageReceived.Dispose();
         _client.Dispose();
+        _running = false;
     }
 }

@@ -19,6 +19,7 @@ export class SupplyComponent implements OnInit {
   public currentProduct: IProductData = {id: '', group: '', sortIndex: 0, name: '', totalItems: 0};
   public currentAction: IActionData = {id: '', name: '', action: '', target: ''};
   public nextInLineNumber: number = 0;
+  public smokeInterval: number = 0;
 
   constructor(public data: DataHubService, public globalStorage: GlobalStorageService) { }
 
@@ -48,6 +49,22 @@ export class SupplyComponent implements OnInit {
 
       this.receiveNextInLine();
     });
+  }
+
+  public getCurrentSmokeValue(): number {
+    if (this.data.smokeData.interval == 0) {
+      return 100;
+    }
+    return ((this.data.smokeData.interval - this.data.smokeData.countdown) / this.data.smokeData.interval) * 100;
+  }
+  public getNextSmokeValueS(): string {
+    if (!this.data.smokeData.on) {
+      return "never";
+    }
+    if (this.data.smokeData.interval == 0) {
+      return "always";
+    }
+    return (this.data.smokeData.countdown / 1000).toFixed(0) + "s";
   }
 
   private receiveNextInLine() {

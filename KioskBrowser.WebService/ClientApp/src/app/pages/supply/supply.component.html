@@ -22,6 +22,40 @@
 
 
 <div class="group" *ngIf="mode === 'actions'">
+  <h1>Smoke machine (Next puf in {{getNextSmokeValueS()}})</h1>
+  <div class="smoke-machine">
+    <button class="supply-button group-color-1"
+            (click)="data.smokeData.on = !data.smokeData.on; data.sendSmokeUpdate()"
+            mat-raised-button color="Success"
+    >
+      <span class="title">{{data.smokeData.on ? "Smoke enabled" : "Smoke disabled"}}</span>
+    </button>
+    &nbsp;
+    <button class="supply-button group-color-1" style="background-color: {{data.smokeData.ready1 ? 'green' : 'red'}}"
+            mat-raised-button  color="Success"
+    >
+      <span class="title">{{data.smokeData.ready1 ? "Smoke 1 ready" : "Smoke 1 wait!"}}</span>
+    </button>
+    &nbsp;
+    <button class="supply-button group-color-1" style="background-color: {{data.smokeData.ready2 ? 'green' : 'red'}}"
+            mat-raised-button color="Success"
+    >
+      <span class="title">{{data.smokeData.ready2 ? "Smoke 2 ready" : "Smoke 2 wait!"}}</span>
+    </button>
+    &nbsp;
+    <mat-form-field class="simple editor" appearance="fill" style="width: 200px;">
+      <mat-label>Interval ms ({{data.smokeData.interval}}ms)</mat-label>
+      <input matInput placeholder="0" [(ngModel)]="smokeInterval">
+    </mat-form-field>
+    <button class="supply-button group-color-1"
+            (click)="data.smokeData.interval = smokeInterval; data.sendSmokeUpdate()"
+            mat-raised-button color="Success"
+    >
+      <span class="title">SET</span>
+    </button><br>
+    <mat-progress-bar [value]="getCurrentSmokeValue()"></mat-progress-bar>
+  </div>
+
   <h1>Actions</h1>
 
   <button class="supply-button group-color-1"

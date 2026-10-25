@@ -53,6 +53,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
     builder.RegisterType<ProductBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<StorageBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<ActionBindService>().AsSelf().SingleInstance().AutoActivate();
+    builder.RegisterType<SmokeMachineBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<PhotoBindService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<FakeBlackoutService>().AsSelf().SingleInstance().AutoActivate();
     builder.RegisterType<KioskMqttClient>().AsSelf().SingleInstance().AutoActivate()

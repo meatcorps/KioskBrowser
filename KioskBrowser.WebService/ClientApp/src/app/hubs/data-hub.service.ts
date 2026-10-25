@@ -32,6 +32,7 @@ export class DataHubService {
   private newPhotoSubject: Subject<string> = new Subject<any>();
   public newPhoto: Observable<string> = this.newPhotoSubject.asObservable();
 
+  public smokeData: ISmokeData;
   private connectionReadySubject: Subject<void> = new Subject<any>();
   private reconnectPolicy: signalR.IRetryPolicy = new RetryPolicy()
 
@@ -56,6 +57,15 @@ export class DataHubService {
     if (this.connected) {
       return;
     }
+
+    this.smokeData = {
+      on: false,
+      interval: 0,
+      ready1: false,
+      ready2: false,
+      countdown: 0,
+    }
+
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(environment.url + '/data')
       .withAutomaticReconnect(this.reconnectPolicy)
@@ -77,6 +87,13 @@ export class DataHubService {
     this.hubConnection.on('AllActions', (data: any) => this.actionChangeSubject.next(data));
     this.hubConnection.on('StorageChange', (data: any) => this.storageChangeSubject.next(data));
     this.hubConnection.on('StorageRemove', (data: any) => this.storageRemoveSubject.next(data));
+    this.hubConnection.on('smokeMachineUpdate', (on: boolean, interval: number, ready1: boolean, ready2: boolean, countdown: number) => {
+      this.smokeData.on = on;
+      this.smokeData.interval = interval;
+      this.smokeData.ready1 = ready1;
+      this.smokeData.ready2 = ready2;
+      this.smokeData.countdown = countdown;
+    });
   }
 
   public addEditGroup(group: IGroupData): Promise<void> {
@@ -85,6 +102,10 @@ export class DataHubService {
       group.id,
       group.name,
       group.sortIndex);
+  }
+
+  public sendSmokeUpdate(): Promise<void> {
+    return this.hubConnection.invoke("SetSmokeMachineData", this.smokeData.on, this.smokeData.interval.toFixed(0));
   }
 
   public removeGroup(group: IGroupData): Promise<void> {
@@ -200,10 +221,19 @@ export class DataHubService {
   }
 }
 
+interface ISmokeData {
+  on: boolean;
+  interval: number;
+  ready1: boolean;
+  ready2: boolean;
+  countdown: number;
+}
+
 export {
   IGroupData,
   IMessageData,
   IProductData,
   IStorageData,
+  ISmokeData,
   IActionData
 }
